@@ -46,10 +46,12 @@
         $ligne = mysqli_fetch_array($reponse);
 
         if($ligne!=null){
+          echo "<a href='profile.php?id=".$_COOKIE['idUser']."'>";
           echo "<img src='../images/avatars/".$ligne['AvatarPath']." />";
           echo "<p class='pseudo'>".$ligne['Pseudo']."</p>";
           if($ligne['EstProfesseur'])
             echo "<img src='../images/prof.png' />";
+          echo "</a>";
         }
       }
   }
