@@ -37,7 +37,7 @@
 
                 setcookie("idUser",$ligne["PersonneId"],0,"/","localhost",true,true);
 
-                $url = "localhost/index.html";
+                $url = "localhost/index.php";
                 header('Location: '.$url);
             }
             else{
