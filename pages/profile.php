@@ -1,5 +1,5 @@
 <?php 
-    $url = "localhost/myprofile.php";
+    $url = "myprofile.php";
     if($_GET['id'] == $_COOKIE['idUser'])
         header("Location: ".$url);
     getUser();

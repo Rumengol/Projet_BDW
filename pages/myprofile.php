@@ -14,31 +14,56 @@
         <input type="textarea" name="Contenu">
         <input type="submit" name="Post" value="Publier">
     </form>
+
+    <?php
+        getUserPost();
+    ?>
 </body>
 </html>
 
 <?php
-    function getUser(){
-    $user = 'root';
-    $password = 'root';
-    $db = 'reseaudb';
-    $host = 'localhost:3306';
-    $connect = mysqli_connect($host,$user,$password,$db);
-
     $id = $_GET['id'];
-    if(mysqli_connect_errno())
-        echo "<div class='errordb'></div>";
-    else{
+
+    function connexion(){
+        $user = 'root';
+        $password = 'root';
+        $db = 'reseaudb';
+        $host = 'localhost:3306';
+        $connect = mysqli_connect($host,$user,$password,$db);
+        if(mysqli_connect_errno())
+            return null;
+        else
+            return $connect;
+    }
+
+    function getUser(){
+    global $pseudo, $prenom, $nom, $avatarPath;
+
+    $connect = connexion();
+
         $requete = "SELECT * FROM Personnes WHERE PersonneId = ".$_GET['id'].";";
         $reponse = mysqli_query($connect,$requete);
         $ligne = mysqli_fetch_array($reponse);
 
         if($ligne!=null){
-            $pseudo = $ligne['Pseudo'];
-            $prenom = $ligne['Prenom'];
-            $nom = $ligne['Nom'];
-            $avatarPath = "../images/avatars/".$ligne['AvatarPath'];
+            return $ligne;
+        }
+
+        mysqli_close($connect);
+    }
+
+
+    function getUserPosts(){
+        $connect = mysqli_connect($host,$user,$password,$db);
+        if(mysqli_connect_errno())
+            echo "<div class='errordb'></div>";
+        else{
+            $requete = "SELECT * FROM Posts WHERE Auteur=".$id." ORDER BY DatePoste DESC LIMIT 10";
+            $reponse = mysqli_query($connect,$requete);
+            $ligne = mysqli_fetch_array($reponse);
+            if($ligne != null){
+
+            }
         }
     }
-}
 ?>
