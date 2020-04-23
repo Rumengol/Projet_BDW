@@ -1,4 +1,7 @@
 <?php 
+    $url = "localhost/myprofile.php";
+    if($_GET['id'] == $_COOKIE['idUser'])
+        header("Location: ".$url);
     getUser();
 ?>
 <!DOCTYPE html>
@@ -11,6 +14,17 @@
 </head>
 <body>
     
+    <?php
+        if($id == $_COOKIE["idUser"]){
+
+        }
+    ?>
+    <form action="profile.php" method="post">
+        <label for="Title">Titre</label>
+        <input type="text" name="Title" id="titre">
+        <input type="textarea" name="Contenu">
+        <input type="submit" name="Post" value="Publier">
+    </form>
 </body>
 </html>
 
@@ -22,6 +36,7 @@
     $host = 'localhost:3306';
     $connect = mysqli_connect($host,$user,$password,$db);
 
+    $id = $_GET['id'];
     if(mysqli_connect_errno())
         echo "<div class='errordb'></div>";
     else{
