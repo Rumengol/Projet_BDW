@@ -1,19 +1,19 @@
-<?php 
-    $url = "localhost/myprofile.php";
-    if($_GET['id'] == $_COOKIE['idUser'])
-        header("Location: ".$url);
-    getUser();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php echo "<title>Profil de ".$pseudo."</title>"; ?>
+    <title>Mon profil</title>
 </head>
 <body>
     
+    <form action="profile.php" method="post">
+        <label for="Title">Titre</label>
+        <input type="text" name="Title" id="titre">
+        <input type="textarea" name="Contenu">
+        <input type="submit" name="Post" value="Publier">
+    </form>
 </body>
 </html>
 
