@@ -37,8 +37,6 @@
     }
 
     function getUser(){
-    global $pseudo, $prenom, $nom, $avatarPath;
-
     $connect = connexion();
 
         $requete = "SELECT * FROM Personnes WHERE PersonneId = ".$_GET['id'].";";
@@ -54,16 +52,24 @@
 
 
     function getUserPosts(){
-        $connect = mysqli_connect($host,$user,$password,$db);
-        if(mysqli_connect_errno())
-            echo "<div class='errordb'></div>";
-        else{
+
+        $connect = connexion();
+
             $requete = "SELECT * FROM Posts WHERE Auteur=".$id." ORDER BY DatePoste DESC LIMIT 10";
             $reponse = mysqli_query($connect,$requete);
             $ligne = mysqli_fetch_array($reponse);
             if($ligne != null){
-
+                foreach ($ligne as $line) {
+                    echo "<div class='post'>";
+                    echo "<h2 class='postTitle'>".$line['Titre']."</h2>";
+                    echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
+                    echo "<p class='postContent'>".$line['Contenu']."</p>";
+                    echo "<div class='footnotes'>";
+                    echo "<img src='../images/like.png' /> <p class='likeCounter'>".$line['Likes']."</p>";
+                    echo "<p class='date'>".$line['DatePost']."</p>";
+                    echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$line['PostId']."&from=myprofile.php'>Supprimer</a></p>";
+                    echo "</div>";
+                }
             }
-        }
-    }
+    } 
 ?>
