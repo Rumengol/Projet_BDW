@@ -27,31 +27,44 @@
         if(mysqli_connect_errno())
             echo "Impossible de se connecter, veuillez réessayer.";
         else{
-            $requete = "SELECT Pseudo,PersonneId FROM Personnes WHERE Email=".$_POST["mail"]." AND HashMDP=".password_hash($_POST["password"], PASSWORD_DEFAULT).";";
+            $requete = "SELECT Pseudo,PersonneId,HashMDP FROM Personnes WHERE Email LIKE \"".$_POST["mail"]."\";";
             $reponse = mysqli_query($connect,$requete);
-            $ligne = mysqli_fetch_array($reponse);
+            if(gettype($reponse) != "boolean"){
+                $ligne = mysqli_fetch_array($reponse);
+            }
+            else{
+                echo " Ca a foiré quelque part";
+                return;
+            }
 
             if($ligne!=null){
+                if(password_verify($_POST["password"], $ligne["HashMDP"])){
                 echo "<p class='greets'>Bon retour, ".$ligne['Pseudo']." !</p>";
                 echo "<p class='greets'>Vous allez être redirigé vers l'accueil...";
 
                 setcookie("idUser",$ligne["PersonneId"],0,"/","localhost",true,true);
 
-                $url = "localhost/index.php";
+                $url = "index.php";
                 header('Location: '.$url);
+                }
+                else{
+                    echo '<p class="error">Mot de passe incorrect, veuillez réessayer.</p>';
+                }
             }
             else{
-                echo '<p class="error">Adresse mail ou mot de passe incorrect.</p>';
-                echo '<form action="login.php" method="post">';
-                echo '<fieldset>';
-                  echo '<label for="mail">Email :</label>';
-                  echo '<input name="mail" type="email" />';
-                  echo '<label for="password">Mot de passe :</label>';
-                  echo '<input name="password" type="password" />';
-                  echo '<button name="login" type="submit">Se connecter</button>';
-                echo '</fieldset>';
-              echo '</form>';
+                echo '<p class="error">Adresse mail non reconnue.</p>';
             }
+
+            echo '<form action="login.php" method="post">';
+            echo '<fieldset>';
+            echo '<label for="mail">Email :</label>';
+            echo '<input name="mail" type="email" />';
+            echo '<label for="password">Mot de passe :</label>';
+            echo '<input name="password" type="password" />';
+            echo '<button name="login" type="submit">Se connecter</button>';
+            echo '</fieldset>';
+            echo '</form>';
+
 
             mysqli_free_result($reponse);
             mysqli_close($connect);

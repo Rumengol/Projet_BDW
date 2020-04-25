@@ -7,12 +7,15 @@
 </head>
 <body>
 	<div align="center">
-        <?php register(); ?>
+        <?php 
+        if(isset($_POST['forminscription']))
+            register();
+        ?>
         <h2>Inscription</h2>
         <br /> 
         <form method="POST" action="inscription.php">
             <table>
-                 <tr>   
+                <tr>   
                     <td align="right"> 
                         <label for="pseudo">
                         Pseudo :</label>
@@ -78,9 +81,14 @@
 					</td>
 				</tr>
             </table>
-            <br />
-            
+            <br />    
         </form>
+		<?php
+		if(isset($erreur))
+		{
+            echo $erreur;
+        }
+		?>
     </div>
 </body>
 </html>
@@ -93,16 +101,57 @@ function register(){
   $host ='localhost:3306';
   $connect = mysqli_connect($host, $user, $password, $db);
 
-if(isset($_POST['forminscription']))
-{
+
+
 	if(!empty($_POST['pseudo']) && !empty($_POST['mail']) && !empty($_POST['mail2']) && !empty($_POST['mdp']) && !empty($_POST['mdp2']))
 	{
-		echo "ok";
+		$pseudo = htmlspecialchars($_POST['pseudo']);
+		$mail = htmlspecialchars($_POST['mail']);
+		$mail2 = htmlspecialchars($_POST['mail2']);
+		$mdp = sha1($_POST['mdp']);
+		$mdp2 = sha1($_POST['mdp2']);
+		
+		$pseudolenght = strlen($pseudo);
+		if($pseudolenght <= 255)
+		{
+			if($mail == $mail2)
+			{
+				if(filter_var($mail, FILTER_VALIDATE_EMAIL))
+				{
+
+					
+					if($mdp == $mdp2)
+					{
+							$insertmbr = $bdd->prepare("INSERT INTO membres(pseudo, mail, motdepasse) VALUES(?,?,?)");
+							$insertmbr->execute(array($pseudo, $mail, $mdp));
+							$erreur = "Votre compte a bien été créé";
+							header('Location: index.php');
+					}
+					else
+					{
+						$erreur = "Vos mots de passe ne correspondent pas";
+					}
+				}
+				else
+				{
+				$erreur = "Votre adresse mail n'est pas valide";
+				}
+			}
+			else
+			{
+				$erreur = "Vos adresses mails ne correspondent pas";
+			}
+		}
+		else
+		{
+				$erreur = "Votre pseudo ne doit pas dépasser 255 caractères";
+		}
+			
 	}
 	else
 	{
-		echo "non";
+		$erreur = "Tous les champs doivent être remplis";
 	}
 }
-}
+        
 ?> 

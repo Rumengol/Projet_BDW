@@ -41,7 +41,7 @@
     if(mysqli_connect_errno())
         echo "<div class='errordb'></div>";
     else{
-        $requete = "SELECT Pseudo,AvatarPath,EstProfesseur FROM Personnes WHERE PersonneId = ".$_COOKIE['idUser'].";";
+        $requete = "SELECT Pseudo,AvatarPath,EstProfesseur FROM Personnes WHERE PersonneId = \"".$_COOKIE['idUser']."\";";
         $reponse = mysqli_query($connect,$requete);
         $ligne = mysqli_fetch_array($reponse);
 

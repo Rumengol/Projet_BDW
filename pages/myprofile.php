@@ -1,6 +1,5 @@
 <?php
-include "../scripts/usermanager.php";
-if(isset($_POST['Post']))
+if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content']))
     writePost();
 ?>
 <!DOCTYPE html>
@@ -13,18 +12,21 @@ if(isset($_POST['Post']))
 </head>
 <body>
     
-    <?php getUser(); ?>
+    <?php 
+        include "../scripts/usermanager.php";
+        showUser(); 
+    ?>
 
     <form action="myprofile.php" method="post">
         <label for="Title">Titre</label>
         <input type="text" name="Title" id="titre">
         <input type="image" name="ImagePath">
-        <input type="textarea" name="Contenu">
+        <input type="textarea" name="Content">
         <input type="submit" name="Post" value="Publier">
     </form>
 
     <?php
-        getUserPost(true);
+        getUserPosts(true);
     ?>
 </body>
 </html>
@@ -33,8 +35,8 @@ if(isset($_POST['Post']))
     function writePost(){
         $connect = connexion();
         $requete = "INSERT INTO Posts (PostId,Titre,Contenu,DatePoste,Likes,CouverturePath,Auteur)
-                    VALUES ('".uniqid()."\','".$_POST['Title']."','".$_POST['Contenu']."','".date("Y-m-d H:i:s")."',
-                    0,'".$_POST['ImagePath']."','".$_GET['id']."');";
+                    VALUES (\"".uniqid()."\",\"".$_POST['Title']."\",\"".$_POST['Content']."\",\"".date("Y-m-d H:i:s")."\",
+                    0,\"".$_POST['ImagePath']."\",\"".$_GET['id']."\");";
         $reponse = mysqli_query($connect,$requete);
         if($reponse!=null){
             $fichier = basename($_FILES['ImagePath']['name']);

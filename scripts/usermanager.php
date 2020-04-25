@@ -13,7 +13,7 @@ else
 
 function getUser(){
     $connect = connexion();
-    $requete = "SELECT * FROM Personnes WHERE PersonneId = ".$_GET['id'].";";
+    $requete = "SELECT * FROM Personnes WHERE PersonneId = \"".$_COOKIE['idUser']."\";";
     $reponse = mysqli_query($connect,$requete);
     $ligne = mysqli_fetch_array($reponse);
 
@@ -30,7 +30,7 @@ function getUserPosts($edit){
 
     $connect = connexion();
 
-        $requete = "SELECT * FROM Posts WHERE Auteur=".$id." ORDER BY DatePoste DESC LIMIT 10";
+        $requete = "SELECT * FROM Posts WHERE Auteur=\"".$_COOKIE['idUser']."\" ORDER BY DatePoste DESC LIMIT 10";
         $reponse = mysqli_query($connect,$requete);
         $ligne = mysqli_fetch_array($reponse);
         if($ligne != null){
@@ -54,7 +54,8 @@ function getUserPosts($edit){
 
 function showUser(){
     $ligne = getUser();
-    echo "<div class='profile'><img class='avatar' src='../images/avatars/".$ligne['AvatarPath']."' />";
+    $avatar = $ligne['AvatarPath'] ? $ligne['AvatarPath'] : "default.png";
+    echo "<div class='profile'><img class='avatar' src='../images/avatars/".$avatar."' />";
     if($ligne['Pseudo'] != $ligne['Prenom']){
         echo "<h2>".$ligne['Pseudo']."</h2>";
         echo "<h3>".$ligne['Prenom']." ".$ligne['Nom']."</h3>";
