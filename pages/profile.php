@@ -3,7 +3,6 @@
     $url = "myprofile.php";
     if($_GET['id'] == $_COOKIE['idUser'])
         header("Location: ".$url);
-    getUser();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +16,6 @@
     
     <?php showUser(); 
     
-    getUserPosts(false); ?>
+    showUserPosts(false,$_GET['id']); ?>
 </body>
 </html>

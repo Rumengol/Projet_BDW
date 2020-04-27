@@ -26,7 +26,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     </form>
 
     <?php
-        getUserPosts(true);
+        showUserPosts(true,$_COOKIE['idUser']);
     ?>
 </body>
 </html>

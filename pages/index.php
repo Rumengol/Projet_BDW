@@ -17,10 +17,15 @@
       </div>
 
     </header>
+
+    <h2>Les derniers posts :</h2>
+    <?php showLatestPosts(); ?>
   </body>
 </html>
 
 <?php
+  include '../scripts/usermanager.php';
+
   function IsConnect(){
     if($_COOKIE['idUser']){
       showUSer();
@@ -54,5 +59,29 @@
           echo "</a>";
         }
       }
+  }
+
+  function showLatestPosts(){
+    $connect = connexion();
+    $requete = "SELECT * FROM Posts JOIN Personnes ON ('Auteur'='PersonneId') ORDER BY DatePoste DESC LIMIT 10";
+    $reponse = mysqli_connect($connect,$requete);
+    $ligne = mysqli_fetch_array($reponse);
+    if($ligne!=null){
+      foreach ($ligne as $line) {
+        echo "<div class='post'>";
+        echo "<h2 class='postTitle'>".$line['Titre']."</h2>";
+        echo "<h3 class='author'>Posté par ".$line['Pseudo']."</a></h3>";
+        if($line['CouverturePath'])
+          echo "<img class='cover' src='../images/covers/".$line['CouverturePath']." />";
+        echo "<p class='postContent'>".$line['Contenu']."</p>";
+        echo "<div class='footnotes'>";
+        echo "<img src='../images/like.png' /> <p class='likeCounter'>".$line['Likes']."</p>";
+        echo "<p class='date'>".$line['DatePoste']."</p>";
+        echo "</div>";
+      }
+    }
+
+    mysqli_free_result($reponse);
+    mysqli_close($connect);
   }
 ?>

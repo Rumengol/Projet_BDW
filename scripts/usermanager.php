@@ -26,26 +26,15 @@ function getUser(){
 }
 
 //Le paramètre edit sert à indiquer si l'utilisateur peut ou non éditer les posts.
-function getUserPosts($edit){
+function getUserPosts($edit,$user){
 
     $connect = connexion();
 
-        $requete = "SELECT * FROM Posts WHERE Auteur=\"".$_COOKIE['idUser']."\" ORDER BY DatePoste DESC LIMIT 10";
+        $requete = "SELECT * FROM Posts WHERE Auteur=\"".$user."\" ORDER BY DatePoste DESC LIMIT 10";
         $reponse = mysqli_query($connect,$requete);
         $ligne = mysqli_fetch_array($reponse);
         if($ligne != null){
-            foreach ($ligne as $line) {
-                echo "<div class='post'>";
-                echo "<h2 class='postTitle'>".$line['Titre']."</h2>";
-                echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
-                echo "<p class='postContent'>".$line['Contenu']."</p>";
-                echo "<div class='footnotes'>";
-                echo "<img src='../images/like.png' /> <p class='likeCounter'>".$line['Likes']."</p>";
-                echo "<p class='date'>".$line['DatePost']."</p>";
-                if($edit)
-                    echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$line['PostId']."&from=myprofile.php'>Supprimer</a></p>";
-                echo "</div>";
-            }
+            return $ligne;
 
             mysqli_free_result($reponse);
         }
@@ -65,5 +54,21 @@ function showUser(){
     
         echo $ligne['EstProfesseur'] ? "<img class='prof' src='../images/prof.png' />" : "<div class='prof vide'></div>";
     echo "</div>";
+}
+
+function showUserPosts($edit,$user){
+    $ligne = getUserPosts($edit,$user);
+    foreach ($ligne as $line) {
+        echo "<div class='post'>";
+        echo "<h2 class='postTitle'>".$line['Titre']."</h2>";
+        echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
+        echo "<p class='postContent'>".$line['Contenu']."</p>";
+        echo "<div class='footnotes'>";
+        echo "<img src='../images/like.png' /> <p class='likeCounter'>".$line['Likes']."</p>";
+        echo "<p class='date'>".$line['DatePoste']."</p>";
+        if($edit)
+            echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$line['PostId']."&from=myprofile.php'>Supprimer</a></p>";
+        echo "</div>";
+    }
 }
 ?>
