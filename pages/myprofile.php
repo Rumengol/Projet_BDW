@@ -21,7 +21,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
         <label for="Title">Titre</label>
         <input type="text" name="Title" id="titre">
         <input type="image" name="ImagePath">
-        <input type="textarea" name="Content">
+        <textarea name="Content" rows="5" cols="50"></textarea>
         <input type="submit" name="Post" value="Publier">
     </form>
 

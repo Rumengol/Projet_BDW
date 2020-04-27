@@ -19,7 +19,9 @@
     </header>
 
     <h2>Les derniers posts :</h2>
-    <?php showLatestPosts(); ?>
+    <div class="postContainer">
+      <?php showLatestPosts(); ?>
+    </div>
   </body>
 </html>
 
