@@ -9,7 +9,6 @@
   <body>
     <header>
       <h1>C'est pas facebook mais presque</h1>
-
       <div id="account">
       <?php
         IsConnect();
@@ -26,11 +25,11 @@
 </html>
 
 <?php
-  include '../scripts/usermanager.php';
 
+  
   function IsConnect(){
     if($_COOKIE['idUser']){
-      showUSer();
+      showUserTop();
     }
     else{
       echo "<a href='register.html'>S'inscrire</a>";
@@ -38,7 +37,7 @@
     }
   }
 
-  function showUser(){
+  function showUserTop(){
     $user = 'root';
     $password = 'root';
     $db = 'reseaudb';
@@ -64,21 +63,22 @@
   }
 
   function showLatestPosts(){
+    include '../scripts/usermanager.php';
     $connect = connexion();
     $requete = "SELECT * FROM Posts JOIN Personnes ON ('Auteur'='PersonneId') ORDER BY DatePoste DESC LIMIT 10";
-    $reponse = mysqli_connect($connect,$requete);
-    $ligne = mysqli_fetch_array($reponse);
-    if($ligne!=null){
-      foreach ($ligne as $line) {
+    $reponse = mysqli_query($connect,$requete);
+    
+    if($reponse!=null){
+      while($ligne = mysqli_fetch_array($reponse)) {
         echo "<div class='post'>";
-        echo "<h2 class='postTitle'>".$line['Titre']."</h2>";
-        echo "<h3 class='author'>Posté par ".$line['Pseudo']."</a></h3>";
-        if($line['CouverturePath'])
-          echo "<img class='cover' src='../images/covers/".$line['CouverturePath']." />";
-        echo "<p class='postContent'>".$line['Contenu']."</p>";
+        echo "<h2 class='postTitle'>".$ligne['Titre']."</h2>";
+        echo "<h3 class='author'>Posté par ".$ligne['Pseudo']."</a></h3>";
+        if($ligne['CouverturePath'])
+          echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
+        echo "<p class='postContent'>".$ligne['Contenu']."</p>";
         echo "<div class='footnotes'>";
-        echo "<img src='../images/like.png' /> <p class='likeCounter'>".$line['Likes']."</p>";
-        echo "<p class='date'>".$line['DatePoste']."</p>";
+        echo "<img src='../images/like.png' /> <p class='likeCounter'>".$ligne['Likes']."</p>";
+        echo "<p class='date'>".$ligne['DatePoste']."</p>";
         echo "</div>";
       }
     }
