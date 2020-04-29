@@ -25,6 +25,14 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
         <input type="submit" name="Post" value="Publier">
     </form>
 
+    <aside>
+        <h2>Mes groupes</h2>
+        <?php showGroups() ?>
+        <br>
+        <h2>Mes amis</h2>
+        <?php showFriends() ?>
+    </aside>
+
     <?php
         showUserPosts(true,$_COOKIE['idUser']);
     ?>
@@ -44,6 +52,38 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
             move_uploaded_file($_FILES['fileUser']['tmp_name'], $dossier . $fichier);
             mysqli_free_result($reponse);
         }
+        mysqli_close($connect);
+    }
+
+    function showGroups(){
+        $connect = connexion();
+        $requete = "SELECT GroupeId, Annee, Matiere FROM appartientpersonnegroupe JOIN groupes ON (Groupe=GroupeId) WHERE Personne=\'".$_COOKIE["idUser"]."';";
+        $reponse = mysqli_query($connect,$requete);
+        while($ligne = mysqli_fetch_array($reponse)){
+            echo "<div class='group'>";
+            echo "<a href='".$ligne["GroupeId"]."'>";
+            echo "<p>".$ligne["Matiere"]." <i>".$ligne["Annee"]."</i></p>";
+            echo "</a></div>";
+        }
+        mysqli_free_result($reponse);
+        mysqli_close($connect);
+    }
+
+    function showFriends(){
+        $connect = connexion();
+        $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\'".$_COOKIE["idUser"]."'
+        UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\'".$_COOKIE["idUser"]."';";
+        $reponse = mysqli_query($connect,$requete);
+        while($ligne = mysqli_fetch_array($reponse)){
+            echo "<div class='friend'>";
+            echo "<a href='".$ligne["PersonneId"]."'>";
+            echo "<img src='../images/avatars/".$ligne["AvatarPath"]."' class='avatar' />";
+            echo "<p class='pseudo'>".$ligne["Pseudo"]."</p>";
+            if($ligne['EstProfesseur'])
+                echo "<img src='../images/prof.png' />";
+            echo "</a></div>";
+        }
+        mysqli_free_result($reponse);
         mysqli_close($connect);
     }
 ?>

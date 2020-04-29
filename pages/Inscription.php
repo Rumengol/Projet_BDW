@@ -101,6 +101,8 @@ function register(){
   $host ='localhost:3306';
   $connect = mysqli_connect($host, $user, $password, $db);
 
+  if(!$connect)
+   echo "oups";
 
 
 	if(!empty($_POST['pseudo']) && !empty($_POST['mail']) && !empty($_POST['mail2']) && !empty($_POST['mdp']) && !empty($_POST['mdp2']))
@@ -122,7 +124,7 @@ function register(){
 					
 					if($mdp == $mdp2)
 					{
-							$insertmbr = $bdd->prepare("INSERT INTO membres(pseudo, mail, motdepasse) VALUES(?,?,?)");
+							$insertmbr = $connect->prepare("INSERT INTO membres(pseudo, mail, motdepasse) VALUES(?,?,?)");
 							$insertmbr->execute(array($pseudo, $mail, $mdp));
 							$erreur = "Votre compte a bien été créé";
 							header('Location: index.php');
