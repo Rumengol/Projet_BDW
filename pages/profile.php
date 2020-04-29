@@ -35,7 +35,7 @@ function showGroups(){
     $reponse = mysqli_query($connect,$requete);
     while($ligne = mysqli_fetch_array($reponse)){
         echo "<div class='group'>";
-        echo "<a href='".$ligne["GroupeId"]."'>";
+        echo "<a href='group.php?idg=".$ligne["GroupeId"]."'>";
         echo "<p>".$ligne["Matiere"]." <i>".$ligne["Annee"]."</i></p>";
         echo "</a></div>";
     }
@@ -50,7 +50,7 @@ function showFriends(){
     $reponse = mysqli_query($connect,$requete);
     while($ligne = mysqli_fetch_array($reponse)){
         echo "<div class='friend'>";
-        echo "<a href='".$ligne["PersonneId"]."'>";
+        echo "<a href='profile.php?id=".$ligne["PersonneId"]."'>";
         echo "<img src='../images/avatars/".$ligne["AvatarPath"]."' class='avatar' />";
         echo "<p class='pseudo'>".$ligne["Pseudo"]."</p>";
         if($ligne['EstProfesseur'])
