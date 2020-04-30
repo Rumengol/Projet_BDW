@@ -70,4 +70,14 @@ function showUserPosts($edit,$user){
         echo "</div>";
     }
 }
+
+function IsConnect(){
+    if($_COOKIE['idUser']){
+      showUserTop();
+    }
+    else{
+      echo "<a href='register.html'>S'inscrire</a>";
+      echo "<a href='login.html'>Se connecter</a>";
+    }
+  }
 ?>

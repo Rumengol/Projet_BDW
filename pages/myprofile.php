@@ -11,7 +11,21 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     <title>Mon profil</title>
 </head>
 <body>
-    
+<header>
+      <h1>C'est pas facebook mais presque</h1>
+      <div id="search">
+        <form action="search.php" method="post">
+          <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+      <div id="account">
+      <?php
+        IsConnect();
+      ?>
+      </div>
+
+    </header>
     <?php 
         include "../scripts/usermanager.php";
         showUser(); 

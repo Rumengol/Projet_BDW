@@ -7,6 +7,21 @@
     <?php echo "<title>Groupe de ".getGroup()["Matiere"]."</title>"; ?>
 </head>
 <body>
+<header>
+      <h1>C'est pas facebook mais presque</h1>
+      <div id="search">
+        <form action="search.php" method="post">
+          <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+      <div id="account">
+      <?php
+        IsConnect();
+      ?>
+      </div>
+
+    </header>
     <h1>Groupe de <?php getGroup()["Matiere"] ?></h1>
     <div id="admin">
         <?php showAdmin(); ?>
