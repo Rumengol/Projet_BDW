@@ -12,19 +12,21 @@
       <div id="search">
         <form action="search.php" method="post">
           <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
-          <button type="submit">Rechercher</button>
+          <button name="search" type="submit">Rechercher</button>
         </form>
       </div>
       <div id="account">
       <?php
+    include '../scripts/usermanager.php';
         IsConnect();
       ?>
       </div>
 
     </header>
 
+    <h2>Résultats de la recherche :</h2>
     <?php 
-    if(isset($_POST['searchBar'])){
+    if(isset($_POST["search"])){
         showResults();
     }
 ?>
@@ -32,15 +34,14 @@
 </html>
 
 <?php
-include '../scripts/usermanager.php';
 function showResults(){
     $connect = connexion();
-    $requete = "SELECT PersonneId, AvatarPath, Pseudo, Prenom, Nom, EstProfesseur FROM Personnes WHERE Pseudo LIKE \'".$_POST["searchBar"]."';";
+    $requete = "SELECT PersonneId, AvatarPath, Pseudo, Prenom, Nom, EstProfesseur FROM Personnes WHERE Pseudo LIKE \"".$_POST["searchBar"]."\";";
     $reponse = mysqli_query($connect,$requete);
-    do {
-        if($ligne["Pseudo"] == null)
-            echo "<h2 class='notFound'>Aucun résultat</h2>";
-        else{
+
+    $ctrl = 0;
+
+    while ($ligne = mysqli_fetch_array($reponse)) {
             echo "<div class='searchResult'>";
             echo "<a href='profile.php?id=".$ligne["PersonneId"]."'>";
             echo "<img src='../images/avatars/".$ligne["AvatarPath"]."' class='avatar'>";
@@ -51,7 +52,13 @@ function showResults(){
             if($ligne["EstProfesseur"])
                 echo "<img src='../images/prof.png' />";
             echo "</a></div>";
-        }
-    } while ($ligne = mysqli_fetch_array($reponse));
+            $ctrl++;
+    }
+
+    if($ctrl == 0)
+    echo "<h2>Aucun résultat</h2>";
+
+    mysqli_free_result($reponse);
+    mysqli_close($connect);
 }
 ?>

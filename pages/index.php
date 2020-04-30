@@ -12,11 +12,12 @@
       <div id="search">
         <form action="search.php" method="post">
           <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
-          <button type="submit">Rechercher</button>
+          <button name="search" type="submit">Rechercher</button>
         </form>
       </div>
       <div id="account">
       <?php
+      include '../scripts/usermanager.php';
         IsConnect();
       ?>
       </div>
@@ -32,33 +33,7 @@
 
 <?php
 
-  function showUserTop(){
-    $user = 'root';
-    $password = 'root';
-    $db = 'reseaudb';
-    $host = 'localhost:3306';
-    $connect = mysqli_connect($host,$user,$password,$db);
-
-    if(mysqli_connect_errno())
-        echo "<div class='errordb'></div>";
-    else{
-        $requete = "SELECT Pseudo,AvatarPath,EstProfesseur FROM Personnes WHERE PersonneId = \"".$_COOKIE['idUser']."\";";
-        $reponse = mysqli_query($connect,$requete);
-        $ligne = mysqli_fetch_array($reponse);
-
-        if($ligne!=null){
-          echo "<a href='profile.php?id=".$_COOKIE['idUser']."'>";
-          echo "<img src='../images/avatars/".$ligne['AvatarPath']." />";
-          echo "<p class='pseudo'>".$ligne['Pseudo']."</p>";
-          if($ligne['EstProfesseur'])
-            echo "<img src='../images/prof.png' />";
-          echo "</a>";
-        }
-      }
-  }
-
   function showLatestPosts(){
-    include '../scripts/usermanager.php';
     $connect = connexion();
     $requete = "SELECT * FROM Posts JOIN Personnes ON ('Auteur'='PersonneId') ORDER BY DatePoste DESC LIMIT 10";
     $reponse = mysqli_query($connect,$requete);

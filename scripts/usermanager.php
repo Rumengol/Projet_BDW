@@ -80,4 +80,25 @@ function IsConnect(){
       echo "<a href='login.html'>Se connecter</a>";
     }
   }
+
+  function showUserTop(){
+    $connect = connexion();
+
+    if(mysqli_connect_errno())
+        echo "<div class='errordb'></div>";
+    else{
+        $requete = "SELECT Pseudo,AvatarPath,EstProfesseur FROM Personnes WHERE PersonneId = \"".$_COOKIE['idUser']."\";";
+        $reponse = mysqli_query($connect,$requete);
+        $ligne = mysqli_fetch_array($reponse);
+
+        if($ligne!=null){
+          echo "<a href='profile.php?id=".$_COOKIE['idUser']."'>";
+          echo "<img src='../images/avatars/".$ligne['AvatarPath']." />";
+          echo "<p class='pseudo'>".$ligne['Pseudo']."</p>";
+          if($ligne['EstProfesseur'])
+            echo "<img src='../images/prof.png' />";
+          echo "</a>";
+        }
+      }
+  }
 ?>

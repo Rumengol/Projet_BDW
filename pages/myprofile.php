@@ -16,7 +16,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
       <div id="search">
         <form action="search.php" method="post">
           <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
-          <button type="submit">Rechercher</button>
+          <button name="search" type="submit">Rechercher</button>
         </form>
       </div>
       <div id="account">
