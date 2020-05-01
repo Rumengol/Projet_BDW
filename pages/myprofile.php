@@ -1,4 +1,5 @@
 <?php
+include "../scripts/usermanager.php";
 if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content']))
     writePost();
 ?>
@@ -8,6 +9,8 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../style/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <title>Mon profil</title>
 </head>
 <body>
@@ -27,7 +30,6 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 
     </header>
     <?php 
-        include "../scripts/usermanager.php";
         showUser(); 
     ?>
 
@@ -56,9 +58,13 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 <?php
     function writePost(){
         $connect = connexion();
+        $cover=null;
+        if(!empty($_POST['ImagePath']))
+            $cover=$_FILES['ImagePath']['name'];
+        date_default_timezone_set('UTC');
         $requete = "INSERT INTO Posts (PostId,Titre,Contenu,DatePoste,Likes,CouverturePath,Auteur)
                     VALUES (\"".uniqid()."\",\"".$_POST['Title']."\",\"".$_POST['Content']."\",\"".date("Y-m-d H:i:s")."\",
-                    0,\"".$_POST['ImagePath']."\",\"".$_GET['id']."\");";
+                    0,\"".$cover."\",\"".$_COOKIE['idUser']."\");";
         $reponse = mysqli_query($connect,$requete);
         if($reponse!=null){
             $fichier = basename($_FILES['ImagePath']['name']);
@@ -71,7 +77,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 
     function showGroups(){
         $connect = connexion();
-        $requete = "SELECT GroupeId, Annee, Matiere FROM appartientpersonnegroupe JOIN groupes ON (Groupe=GroupeId) WHERE Personne=\'".$_COOKIE["idUser"]."';";
+        $requete = "SELECT GroupeId, Annee, Matiere FROM appartientpersonnegroupe JOIN groupes ON (Groupe=GroupeId) WHERE Personne=\"".$_COOKIE["idUser"]."\";";
         $reponse = mysqli_query($connect,$requete);
         while($ligne = mysqli_fetch_array($reponse)){
             echo "<div class='group'>";
@@ -85,8 +91,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 
     function showFriends(){
         $connect = connexion();
-        $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\'".$_COOKIE["idUser"]."'
-        UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\'".$_COOKIE["idUser"]."';";
+        $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\"".$_COOKIE["idUser"]."\" UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\"".$_COOKIE["idUser"]."\";";
         $reponse = mysqli_query($connect,$requete);
         while($ligne = mysqli_fetch_array($reponse)){
             echo "<div class='friend'>";

@@ -1,22 +1,11 @@
 @font-face {
   font-family: "Fatface";
-  src: url("fonts/AbrilFatface-Regular.ttf") format("truetype");
+  src: url("../fonts/AbrilFatface-Regular.ttf") format("truetype");
 }
 
 body {
   margin: 0;
   padding: 0;
-}
-
-.postContainer {
-  width: 80%;
-}
-
-.post {
-  border: 2px solid black;
-  box-shadow: 3px;
-  background: paleturquoise;
-  display: flex;
 }
 
 header {
@@ -124,4 +113,61 @@ header h1 {
 
 #account:hover > a {
   color: white;
+}
+
+.postContainer {
+  width: 80%;
+  margin: auto;
+}
+
+.postContainer h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 42px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.post {
+  border: 5px solid black;
+  box-shadow: 2.1px 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    2.1px 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    2.1px 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086), 2.1px 100px 80px rgba(0, 0, 0, 0.12);
+  background: lightgrey;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  border-radius: 20px;
+}
+
+.postTitle {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  text-align: left !important;
+}
+
+.author {
+  font-style: italic;
+  color: grey;
+}
+
+.author a {
+  color: #e84118;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.author a:hover {
+  color: rgb(175, 162, 162);
+}
+
+.footnotes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.date {
+  font-style: italic;
+  color: grey;
 }
