@@ -4,17 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../style/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <title>Index</title>
   </head>
   <body>
     <header>
       <h1>C'est pas facebook mais presque</h1>
-      <div id="search">
         <form action="search.php" method="post">
-          <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
-          <button name="search" type="submit">Rechercher</button>
-        </form>
+      <div id="search-box">
+          <input type="text" name="searchBar" id="search-txt" placeholder="Chercher un pseudo">
+          <button name="search" type="submit" id="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
       </div>
+        </form>
       <div id="account">
       <?php
       include '../scripts/usermanager.php';

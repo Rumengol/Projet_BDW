@@ -90,10 +90,15 @@ function IsConnect(){
         $requete = "SELECT Pseudo,AvatarPath,EstProfesseur FROM Personnes WHERE PersonneId = \"".$_COOKIE['idUser']."\";";
         $reponse = mysqli_query($connect,$requete);
         $ligne = mysqli_fetch_array($reponse);
+        $avatar;
 
         if($ligne!=null){
           echo "<a href='profile.php?id=".$_COOKIE['idUser']."'>";
-          echo "<img src='../images/avatars/".$ligne['AvatarPath']." />";
+          if($ligne['AvatarPath'] == null)
+            $avatar = "default.png";
+        else
+            $avatar = $ligne['AvatarPath'];
+          echo "<img src='../images/avatars/".$avatar."' />";
           echo "<p class='pseudo'>".$ligne['Pseudo']."</p>";
           if($ligne['EstProfesseur'])
             echo "<img src='../images/prof.png' />";

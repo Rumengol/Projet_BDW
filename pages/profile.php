@@ -15,7 +15,7 @@
 <body>
 <header>
       <h1>C'est pas facebook mais presque</h1>
-      <div id="search">
+      <div id="search-box">
         <form action="search.php" method="post">
           <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
           <button name="search" type="submit">Rechercher</button>
