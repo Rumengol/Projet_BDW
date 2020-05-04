@@ -34,10 +34,11 @@
       <?php showLatestPosts(); ?>
     </div>
   </body>
-  <script id="commentBlock" type="text/html">
+  <script id="commentHtml" type="text/html">
     <form class="commentForm" method="POST">
     <textarea name="commentaire" placeholder="Votre commentaire..."></textarea><br />
     <input type="submit" value="Poster mon commentaire" name="submit_commentaire" />
+    <button class="cancel" onclick="CancelComment()">Annuler</button>
     </form>
 </script>
 </html>

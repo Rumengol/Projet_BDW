@@ -1,8 +1,11 @@
 function showCommentForm(postId) {
-  console.log("script atteint");
   var post = document.getElementById(`post_${postId}`);
+  var form = document.getElementById("commentBlock");
+  if (form != null) {
+    form.parentNode.removeChild(form);
+  }
   var comment = document.createElement("div");
-  comment.setAttribute("class", "commentForm");
-  comment.innerHTML = document.getElementById("commentBlock").innerHTML;
+  comment.setAttribute("id", "commentBlock");
+  comment.innerHTML = document.getElementById("commentHtml").innerHTML;
   post.appendChild(comment);
 }
