@@ -4,7 +4,7 @@
     ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@
                 echo "<p class='greets'>Bon retour, ".$ligne['Pseudo']." !</p>";
                 echo "<p class='greets'>Vous allez être redirigé vers l'accueil...";
 
-                setcookie("idUser",$ligne["PersonneId"],0,"/","localhost",true,true);
+                setcookie("idUser",$ligne["PersonneId"],time()+30*24*60*60,"/","localhost",true,true);
 
                 $url = "index.php";
                 header('Location: '.$url);

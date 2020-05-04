@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-      <h1>C'est pas facebook mais presque</h1>
+<h1><a href="index.php">C'est pas facebook mais presque</a></h1>
       <div id="search">
         <form action="search.php" method="post">
           <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">

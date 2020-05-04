@@ -22,6 +22,12 @@ header {
 header h1 {
   padding-left: 5px;
   font-family: "Fatface", "Cambria", "Arial", "Serif";
+  cursor: default;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: #e84118;
 }
 
 #search-box {
@@ -76,11 +82,9 @@ header h1 {
   width: 240px;
   height: 4em;
   background: #2f3640;
-}
-
-#account a {
-  text-decoration: none;
-  max-height: 64px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #account img {
@@ -91,7 +95,7 @@ header h1 {
   transition: 0.4s;
 }
 
-#account:hover > a > img {
+#account > a.acc:hover > img {
   border: 2px solid white;
 }
 
@@ -101,18 +105,36 @@ header h1 {
   font-weight: bold;
   color: #e84118;
   display: flex;
+  text-decoration: none;
+  max-height: 64px;
   justify-content: space-around;
   align-items: center;
   transition: 0.4s;
 }
 
+#account a.notco {
+  font-size: 20px !important;
+  padding-left: 10px;
+}
+
 #account .pseudo {
   vertical-align: middle;
   margin-left: 2px;
+  padding-left: 3px;
 }
 
-#account:hover > a {
+#account > a.acc:hover {
   color: white;
+}
+
+.disconnect {
+  width: 40px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.disconnect:hover {
+  color: white !important;
 }
 
 .postContainer {
@@ -172,4 +194,13 @@ header h1 {
 .date {
   font-style: italic;
   color: grey;
+}
+
+.comment {
+  color: #e84118;
+}
+
+.nocomment {
+  color: gray;
+  text-decoration: line-through;
 }

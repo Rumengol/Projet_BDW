@@ -67,7 +67,7 @@ function showUserPosts($edit,$user){
         echo "<p class='date'>".$ligne['DatePoste']."</p>";
         if($edit)
             echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$ligne['PostId']."&from=myprofile.php'>Supprimer</a></p>";
-        if($_COOKIE["idUser"])
+        if(isset($_COOKIE["idUser"]))
             echo "<a class='comment' href='#'>Commenter</a>";
         else
             echo "<p class='nocomment'>Commenter</p>";
@@ -76,12 +76,12 @@ function showUserPosts($edit,$user){
 }
 
 function IsConnect(){
-    if($_COOKIE['idUser']){
+    if(isset($_COOKIE['idUser'])){
       showUserTop();
     }
     else{
-      echo "<a href='register.html'>S'inscrire</a>";
-      echo "<a href='login.html'>Se connecter</a>";
+      echo "<a class='notco' href='register.html'>S'inscrire</a>";
+      echo "<a class='notco' href='login.html'>Se connecter</a>";
     }
   }
 
@@ -97,7 +97,7 @@ function showUserTop(){
         $avatar;
 
         if($ligne!=null){
-          echo "<a href='profile.php?id=".$_COOKIE['idUser']."'>";
+          echo "<a class='acc' href='profile.php?id=".$_COOKIE['idUser']."'>";
           if($ligne['AvatarPath'] == null)
             $avatar = "default.png";
         else

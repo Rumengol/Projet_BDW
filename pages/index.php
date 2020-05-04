@@ -63,7 +63,7 @@
         echo "<div class='footnotes'>";
         echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
         echo "<p class='date'>le <b>".$ligne['DatePoste']."</b></p>";
-        if($_COOKIE["idUser"])
+        if(isset($_COOKIE["idUser"]))
           echo "<a class='comment' href='#' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
         else
           echo "<p class='nocomment'>Commenter</p>";

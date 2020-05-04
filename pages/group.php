@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="../scripts/comment.js"></script>
     <?php echo "<title>Groupe de ".getGroup()["Matiere"]."</title>"; ?>
 </head>
 <body>
 <header>
-      <h1>C'est pas facebook mais presque</h1>
+    <h1><a href="index.php">C'est pas facebook mais presque</a></h1>
       <div id="search">
         <form action="search.php" method="post">
           <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
@@ -37,6 +38,13 @@
     </aside>
     
 </body>
+<script id="commentHtml" type="text/html">
+    <form class="commentForm" method="POST">
+    <textarea name="commentaire" placeholder="Votre commentaire..."></textarea><br />
+    <input type="submit" value="Poster mon commentaire" name="submit_commentaire" />
+    <button class="cancel" onclick="CancelComment()">Annuler</button>
+    </form>
+</script>
 </html>
 
 <?php
