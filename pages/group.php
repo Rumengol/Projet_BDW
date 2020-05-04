@@ -12,12 +12,14 @@
 <body>
 <header>
     <h1><a href="index.php">C'est pas facebook mais presque</a></h1>
-      <div id="search">
-        <form action="search.php" method="post">
-          <input type="text" name="searchBar" id="searchBar" placeholder="Chercher un pseudo">
-          <button name="search" type="submit">Rechercher</button>
-        </form>
+    <form action="search.php" method="post">
+      <div id="search-box">
+          <input type="text" name="searchBar" id="search-txt" placeholder="Chercher un pseudo">
+          <button name="search" type="submit" id="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
       </div>
+    </form>
       <div id="account">
       <?php
         IsConnect();

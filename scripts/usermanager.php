@@ -60,10 +60,11 @@ function showUserPosts($edit,$user){
     while($ligne = mysqli_fetch_array($reponse)) {
         echo "<div class='post'>";
         echo "<h2 class='postTitle'>".$ligne['Titre']."</h2>";
-        echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
+        if($ligne["CouverturePath"])
+            echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
         echo "<p class='postContent'>".$ligne['Contenu']."</p>";
         echo "<div class='footnotes'>";
-        echo "<img src='../images/like.png' /> <p class='likeCounter'>".$ligne['Likes']."</p>";
+        echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
         echo "<p class='date'>".$ligne['DatePoste']."</p>";
         if($edit)
             echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$ligne['PostId']."&from=myprofile.php'>Supprimer</a></p>";
@@ -71,7 +72,7 @@ function showUserPosts($edit,$user){
             echo "<a class='comment' href='#'>Commenter</a>";
         else
             echo "<p class='nocomment'>Commenter</p>";
-        echo "</div>";
+        echo "</div></div>";
     }
 }
 
