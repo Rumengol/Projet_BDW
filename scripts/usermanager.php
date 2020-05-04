@@ -67,6 +67,10 @@ function showUserPosts($edit,$user){
         echo "<p class='date'>".$ligne['DatePoste']."</p>";
         if($edit)
             echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$ligne['PostId']."&from=myprofile.php'>Supprimer</a></p>";
+        if($_COOKIE["idUser"])
+            echo "<a class='comment' href='#'>Commenter</a>";
+        else
+            echo "<p class='nocomment'>Commenter</p>";
         echo "</div>";
     }
 }
@@ -81,7 +85,7 @@ function IsConnect(){
     }
   }
 
-  function showUserTop(){
+function showUserTop(){
     $connect = connexion();
 
     if(mysqli_connect_errno())
@@ -103,6 +107,7 @@ function IsConnect(){
           if($ligne['EstProfesseur'])
             echo "<img src='../images/prof.png' />";
           echo "</a>";
+          echo "<a class='disconnect' href='disconnect.php?returnurl=".$_SERVER["REQUEST_URI"]."'><i class='fas fa-sign-out-alt'></i></a>";
         }
       }
   }

@@ -89,6 +89,10 @@ function showGroupPosts(){
             echo "<p class='date'>".$ligne['DatePoste']."</p>";
             if($edit)
                 echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='supprimer.php?id=".$ligne['PostId']."&from=myprofile.php'>Supprimer</a></p>";
+            if($_COOKIE["idUser"])
+                echo "<a class='comment' href='#'>Commenter</a>";
+            else
+                echo "<p class='nocomment'>Commenter</p>";
             echo "</div>";
         }
 
