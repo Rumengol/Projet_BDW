@@ -55,7 +55,7 @@
         echo "<div class='post' id='post_".$ligne["PostId"]."'>";
         echo "<div class='postHead'>";
         echo "<h2 class='postTitle'>".$ligne['Titre']."</h2>";
-        echo "<h3 class='author'>Posté par <a href='".$ligne["PersonneId"]."'>".$ligne['Pseudo']."</a></h3>";
+        echo "<h3 class='author'>Posté par <a href='profile.php?id=".$ligne["PersonneId"]."'>".$ligne['Pseudo']."</a></h3>";
         echo "</div>";
         if($ligne['CouverturePath'])
           echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";

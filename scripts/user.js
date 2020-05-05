@@ -1,12 +1,14 @@
 function sendFriendRequest(ami1, ami2) {
   var xmlhttp = new XMLHttpRequest();
-
   xmlhttp.onreadystatechange = function() {
+    console.log(xmlhttp.status);
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
       // XMLHttpRequest.DONE == 4
       if (xmlhttp.status == 200) {
         var addBtn = document.getElementsByClassName("addFriendButton");
-        if (!addBtn.disabled) addBtn.disabled = true;
+        addBtn.className += " disabled";
+        var addDiv = document.getElementById("addfriend");
+        addDiv.innerHTML += `<a href='#' class='unfriend' onclick='unfriend(".${ami1}.",".${ami2}.")'><i class='fas fa-times'></i></a>`;
       } else if (xmlhttp.status == 400) {
         alert("There was an error 400");
       } else {
@@ -14,8 +16,8 @@ function sendFriendRequest(ami1, ami2) {
       }
     }
   };
-
-  xmlhttp.open("POST", "addFriend.php", true);
+  xmlhttp.open("POST", "../scripts/addFriend.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.send(`id1=${ami1}&id2=${ami2}`);
 }
 

@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="../scripts/comment.js"></script>
-    <?php echo "<title>Profil de ".getUser()['Pseudo']."</title>"; ?>
+    <script src="../scripts/user.js"></script>
+    <?php echo "<title>Profil de ".getUser($_GET['id'])['Pseudo']."</title>"; ?>
 </head>
 <body>
 <header>
@@ -44,7 +45,7 @@
 
     <aside>
         <h2>Ses Groupes</h2>
-        <?php showGroupes(); ?>
+        <?php showGroups(); ?>
         <h2>Ses Amis</h2>
         <?php showFriends(); ?>
     </aside>
