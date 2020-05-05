@@ -35,7 +35,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 
     </header>
     <?php 
-        showUser(); 
+        showUser($_COOKIE['idUser']); 
     ?>
 
     <form action="myprofile.php" method="post">

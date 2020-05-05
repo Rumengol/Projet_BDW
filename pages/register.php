@@ -13,7 +13,7 @@
         ?>
         <h2>Inscription</h2>
         <br /> 
-        <form method="POST" action="inscription.php">
+        <form method="POST" action="register.php">
             <table>
                 <tr>   
                     <td align="right"> 

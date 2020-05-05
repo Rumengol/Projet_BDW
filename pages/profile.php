@@ -35,7 +35,7 @@
     </header>
 
     <?php 
-    showUser(); 
+    showUser($_GET["id"]); 
     
     echo "<div class='postContainer'>";
     showUserPosts(false,$_GET['id']);
