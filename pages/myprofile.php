@@ -34,6 +34,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
       </div>
 
     </header>
+    <div class="page">
     <div class="content">
     <?php 
         showUser($_COOKIE['idUser']); 
@@ -52,6 +53,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
         showUserPosts($_COOKIE['idUser']);
     ?>
     </div>
+</div>
 
     <aside>
         <h2>Mes groupes</h2>

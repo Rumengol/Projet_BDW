@@ -34,21 +34,22 @@
       </div>
 
     </header>
-
-    <div class="content">
-    <?php 
-    showUser($_GET["id"]); 
-    echo "<div class='postContainer'>";
-    showUserPosts($_GET['id']);
-    echo "</div>";
-    ?>
+    <div class="page">
+        <div class="content">
+        <?php 
+            showUser($_GET["id"]); 
+            echo "<div class='postContainer'>";
+            showUserPosts($_GET['id']);
+            echo "</div>";
+        ?>
+        </div>
+        <aside>
+            <h2>Ses Groupes</h2>
+            <?php showGroups(); ?>
+            <h2>Ses Amis</h2>
+            <?php showFriends(); ?>
+        </aside>
     </div>
-    <aside>
-        <h2>Ses Groupes</h2>
-        <?php showGroups(); ?>
-        <h2>Ses Amis</h2>
-        <?php showFriends(); ?>
-    </aside>
 </body>
 <script id="commentHtml" type="text/html">
     <form class="commentForm" method="POST">

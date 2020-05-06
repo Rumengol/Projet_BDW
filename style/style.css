@@ -142,6 +142,10 @@ header h1 a {
   color: white !important;
 }
 
+.page {
+  display: inline-flex;
+}
+
 .postContainer {
   width: 80%;
   margin: auto;
