@@ -8,7 +8,7 @@ function sendFriendRequest(ami1, ami2) {
         var addBtn = document.getElementsByClassName("addFriendButton");
         addBtn.className += " disabled";
         var addDiv = document.getElementById("addfriend");
-        addDiv.innerHTML += `<a href='#' class='unfriend' onclick='unfriend(".${ami1}.",".${ami2}.")'><i class='fas fa-times'></i></a>`;
+        addDiv.innerHTML += `<a href='#' class='unfriend' onclick='unfriend("${ami1}","${ami2}")'><i class='fas fa-times'></i></a>`;
       } else if (xmlhttp.status == 400) {
         alert("There was an error 400");
       } else {
@@ -31,7 +31,7 @@ function unfriend(ami1, ami2) {
         var unbtn = document.getElementsByClassName("unfriend");
         if (unbtn) {
           var addDiv = document.getElementById("addfriend");
-          addDiv.innerHTML = `<a href='#' class='addFriendButton' onclick='sendFriendRequest(".${ami1}.",".${ami2}."')><i class='fas fa-user'></i> Ajouter ami</a>`;
+          addDiv.innerHTML = `<a href='#' class='addFriendButton' onclick='sendFriendRequest("${ami1}","${ami2}")'><i class='fas fa-user'></i> Ajouter ami</a>`;
         }
       } else if (xmlhttp.status == 400) {
         alert("There was an error 400");
@@ -41,6 +41,7 @@ function unfriend(ami1, ami2) {
     }
   };
 
-  xmlhttp.open("POST", "unfriend.php", true);
+  xmlhttp.open("POST", "../scripts/unfriend.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.send(`id1=${ami1}&id2=${ami2}`);
 }

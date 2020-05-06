@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="../scripts/comment.js"></script>
+    <script src="../scripts/post.js"></script>
     <title>Index</title>
   </head>
   <body>
@@ -51,24 +51,8 @@
     $reponse = mysqli_query($connect,$requete);
     
     if($reponse!=null){
-      while($ligne = mysqli_fetch_array($reponse)) {
-        echo "<div class='post' id='post_".$ligne["PostId"]."'>";
-        echo "<div class='postHead'>";
-        echo "<h2 class='postTitle'>".$ligne['Titre']."</h2>";
-        echo "<h3 class='author'>Posté par <a href='profile.php?id=".$ligne["PersonneId"]."'>".$ligne['Pseudo']."</a></h3>";
-        echo "</div>";
-        if($ligne['CouverturePath'])
-          echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
-        echo "<p class='postContent'>".$ligne['Contenu']."</p>";
-        echo "<div class='footnotes'>";
-        echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
-        echo "<p class='date'>le <b>".$ligne['DatePoste']."</b></p>";
-        if(isset($_COOKIE["idUser"]))
-          echo "<a class='comment' href='#' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
-        else
-          echo "<p class='nocomment'>Commenter</p>";
-        echo "</div></div>";
-      }
+      showPost($reponse);
+      
     }
 
     mysqli_free_result($reponse);

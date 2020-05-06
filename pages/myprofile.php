@@ -13,7 +13,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="../scripts/comment.js"></script>
+    <script src="../scripts/post.js"></script>
     <title>Mon profil</title>
 </head>
 <body>
@@ -34,6 +34,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
       </div>
 
     </header>
+    <div class="content">
     <?php 
         showUser($_COOKIE['idUser']); 
     ?>
@@ -46,6 +47,12 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
         <input type="submit" name="Post" value="Publier">
     </form>
 
+    <div class="postContainer">
+    <?php
+        showUserPosts($_COOKIE['idUser']);
+    ?>
+    </div>
+
     <aside>
         <h2>Mes groupes</h2>
         <?php showGroups() ?>
@@ -54,10 +61,6 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
         <?php showFriends() ?>
     </aside>
 
-    <div class="postContainer">
-    <?php
-        showUserPosts(true,$_COOKIE['idUser']);
-    ?>
     </div>
 </body>
 <script id="commentHtml" type="text/html">

@@ -1,7 +1,7 @@
 <?php  
     include "../scripts/usermanager.php";
     $url = "myprofile.php";
-    if($_GET['id'] == $_COOKIE['idUser'])
+    if(isset($_COOKIE['idUser']) && $_GET['id'] == $_COOKIE['idUser'])
         header("Location: ".$url);
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="../scripts/comment.js"></script>
+    <script src="../scripts/post.js"></script>
     <script src="../scripts/user.js"></script>
     <?php echo "<title>Profil de ".getUser($_GET['id'])['Pseudo']."</title>"; ?>
 </head>
@@ -35,14 +35,14 @@
 
     </header>
 
+    <div class="content">
     <?php 
     showUser($_GET["id"]); 
-    
     echo "<div class='postContainer'>";
-    showUserPosts(false,$_GET['id']);
+    showUserPosts($_GET['id']);
     echo "</div>";
     ?>
-
+    </div>
     <aside>
         <h2>Ses Groupes</h2>
         <?php showGroups(); ?>
@@ -62,7 +62,7 @@
 <?php
 function showGroups(){
     $connect = connexion();
-    $requete = "SELECT GroupeId, Annee, Matiere FROM appartientpersonnegroupe JOIN groupes ON (Groupe=GroupeId) WHERE Personne=\'".$_GET["id"]."';";
+    $requete = "SELECT GroupeId, Annee, Matiere FROM appartientpersonnegroupe JOIN groupes ON (Groupe=GroupeId) WHERE Personne=\"".$_GET["id"]."\";";
     $reponse = mysqli_query($connect,$requete);
     while($ligne = mysqli_fetch_array($reponse)){
         echo "<div class='group'>";
@@ -76,8 +76,8 @@ function showGroups(){
 
 function showFriends(){
     $connect = connexion();
-    $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\'".$_GET["id"]."'
-    UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\'".$_GET["id"]."';";
+    $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\"".$_GET["id"]."\"
+    UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\"".$_GET["id"]."\";";
     $reponse = mysqli_query($connect,$requete);
     while($ligne = mysqli_fetch_array($reponse)){
         echo "<div class='friend'>";

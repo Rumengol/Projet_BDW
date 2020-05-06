@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="../scripts/comment.js"></script>
+    <script src="../scripts/post.js"></script>
     <?php echo "<title>Groupe de ".getGroup()["Matiere"]."</title>"; ?>
 </head>
 <body>
