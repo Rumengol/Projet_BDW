@@ -37,6 +37,7 @@
   <script id="commentHtml" type="text/html">
     <form class="commentForm" method="POST">
     <textarea name="commentaire" placeholder="Votre commentaire..."></textarea><br />
+    <input name="returnurl" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden >
     <input type="submit" value="Poster mon commentaire" name="submit_commentaire" />
     <button class="cancel" onclick="CancelComment()">Annuler</button>
     </form>

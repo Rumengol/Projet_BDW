@@ -8,6 +8,12 @@ function showCommentForm(postId) {
   comment.setAttribute("id", "commentBlock");
   comment.innerHTML = document.getElementById("commentHtml").innerHTML;
   post.appendChild(comment);
+  var formpart = document.querySelector(".commentForm");
+  var postRef = document.createElement("input");
+  postRef.setAttribute("name", "post");
+  postRef.setAttribute("value", postId);
+  postRef.setAttribute("hidden", true);
+  formpart.appendChild(postRef);
 }
 
 function deletePost(postId) {

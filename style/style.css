@@ -143,7 +143,12 @@ header h1 a {
 }
 
 .page {
-  display: inline-flex;
+  display: flex;
+}
+
+.content {
+  width: 80%;
+  margin: auto;
 }
 
 .postContainer {
@@ -197,6 +202,7 @@ header h1 a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
 }
 
@@ -207,7 +213,6 @@ header h1 a {
 
 .comment {
   color: #e84118;
-  vertical-align: center;
 }
 
 .nocomment {

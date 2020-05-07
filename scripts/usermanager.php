@@ -41,11 +41,10 @@ function areFriends($user1,$user2){
 function getUserPosts($user){
 
     $connect = connexion();
-    $requete = "SELECT * FROM Posts JOIN Personnes ON (Auteur=PersonneId) WHERE Auteur=\"".$user."\" ORDER BY DatePoste DESC LIMIT 10";
+    $requete = "SELECT * FROM Posts p JOIN Personnes ON (p.Auteur=PersonneId) WHERE p.Auteur=\"".$user."\" ORDER BY DatePoste DESC LIMIT 10;";
     $reponse = mysqli_query($connect,$requete);
     if($reponse != null){
         return $reponse;
-
         mysqli_free_result($reponse);
     }
     mysqli_close($connect);
@@ -89,15 +88,27 @@ function showPost($reponse){
         echo "<p class='postContent'>".$ligne['Contenu']."</p>";
         echo "<div class='footnotes'>";
         echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
+        echo "<p class='commentNb'><i class='fas fa-comments'></i> ".getNbComments($ligne['PostId'])."</p>";
         echo "<p class='date'>le <b>".$ligne['DatePoste']."</b></p>";
         if(isset($_COOKIE['idUser']) && $_COOKIE['idUser'] == $ligne['PersonneId'])
         echo "<p class='postActions'><a href='#'>Éditer</a>|<a href='#' onclick='deletePost(\"".$ligne["PostId"]."\")'> <i class='fas fa-times'></i> Supprimer</a></p>";
         if(isset($_COOKIE["idUser"]))
-          echo "<a class='comment' href='#' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
+          echo "<a class='comment' href='#post_".$ligne["PostId"]."' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
         else
           echo "<p class='nocomment'>Commenter</p>";
         echo "</div></div>";
       }
+}
+
+function getNbComments($postId){
+  $connect = connexion();
+  $requete = "SELECT COUNT(ParentPost) c FROM Posts JOIN Commentaires ON (PostId = ParentPost) WHERE PostId=\"".$postId."\" GROUP BY PostId;";
+  $reponse = mysqli_query($connect,$requete);
+  if($reponse != null){
+    $rep = mysqli_fetch_row($reponse)["c"];
+    return $rep!=null ?  $rep : "0";
+  }
+  else return "0";
 }
 
 function IsConnect(){
