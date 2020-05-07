@@ -35,7 +35,7 @@
     </div>
   </body>
   <script id="commentHtml" type="text/html">
-    <form class="commentForm" method="POST">
+  <form class="commentForm" method="POST" action="../scripts/Commentaire.php">
     <textarea name="commentaire" placeholder="Votre commentaire..."></textarea><br />
     <input name="returnurl" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden >
     <input type="submit" value="Poster mon commentaire" name="submit_commentaire" />

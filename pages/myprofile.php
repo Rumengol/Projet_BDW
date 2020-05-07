@@ -66,7 +66,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     </div>
 </body>
 <script id="commentHtml" type="text/html">
-    <form class="commentForm" method="POST">
+    <form class="commentForm" method="POST" action="../scripts/Commentaire.php">
     <textarea name="commentaire" placeholder="Votre commentaire..."></textarea><br />
     <input name="returnurl" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden >
     <input type="submit" value="Poster mon commentaire" name="submit_commentaire" />
@@ -87,10 +87,11 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
                     0,\"".$cover."\",\"".$_COOKIE['idUser']."\");";
         $reponse = mysqli_query($connect,$requete);
         if($reponse!=null){
+            if(!empty($_POST['ImagePath'])){
             $fichier = basename($_FILES['ImagePath']['name']);
             $dossier = '../images/covers/';
             move_uploaded_file($_FILES['fileUser']['tmp_name'], $dossier . $fichier);
-            mysqli_free_result($reponse);
+            }   
         }
         mysqli_close($connect);
     }

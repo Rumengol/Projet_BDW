@@ -9,18 +9,15 @@ $date = date("Y-m-d H:i:s");
 $post = $_POST["post"];
 $author = $_COOKIE["idUser"];
 
-$sql = "INSERT INTO commentaires (CommentId,Contenu,DateCommentaire,Likes,ParentPost,Auteur) 
+$requete = "INSERT INTO commentaires (CommentId,Contenu,DateCommentaire,Likes,ParentPost,Auteur) 
         VALUES(\"".$id."\",\"".$text."\",\"".$date."\",0,\"".$post."\",\"".$author."\");";
-$reponse = mysqli_query($connect,$sql);
+$reponse = mysqli_query($connect,$requete);
 if($reponse == null)
     echo 'Erreur SQL !'.$sql.'<br>'.mysqli_error();
-else{
-    mysqli_free_result($reponse);
-}
 mysqli_close($connect);
 }
     
-header("Location : ".$_POST['returnurl']);
+header("Location: ".$_POST['returnurl']);
 ?>
 	
 	
