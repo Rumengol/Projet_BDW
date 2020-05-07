@@ -1,3 +1,5 @@
+let toggle = {};
+
 function showCommentForm(postId) {
   var post = document.getElementById(`post_${postId}`);
   var form = document.getElementById("commentBlock");
@@ -16,19 +18,48 @@ function showCommentForm(postId) {
   formpart.appendChild(postRef);
 }
 
-function showComments(postId) {
+function toggleComments(postId) {
   var post = document.getElementById(`post_${postId}`);
 
+  if (toggle[postId] == true) {
+    commentContainer = document.querySelector(
+      `#post_${postId} .commentContainer`
+    );
+    post.removeChild(commentContainer);
+    toggle[postId] = false;
+  } else {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      console.log(xmlhttp.status);
+      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        // XMLHttpRequest.DONE == 4
+        if (xmlhttp.status == 200) {
+          var container = document.createElement("div");
+          container.setAttribute("class", "commentContainer");
+          container.innerHTML = xmlhttp.responseText;
+          post.appendChild(container);
+          toggle[postId] = true;
+        } else if (xmlhttp.status == 400) {
+          alert("There was an error 400");
+        } else {
+          alert("something else other than 200 was returned");
+        }
+      }
+    };
+    xmlhttp.open("GET", `../scripts/showComments.php?postid=${postId}`, true);
+    xmlhttp.send();
+  }
+}
+
+function deleteComment(commentId) {
+  var comment = document.getElementById(`comment_${commentId}`);
   var xmlhttp = new XMLHttpRequest();
+
   xmlhttp.onreadystatechange = function() {
-    console.log(xmlhttp.status);
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
       // XMLHttpRequest.DONE == 4
       if (xmlhttp.status == 200) {
-        var container = document.createElement("div");
-        container.setAttribute("class", "commentContainer");
-        container.innerHTML = xmlhttp.responseText;
-        post.appendChild(container);
+        comment.parentNode.removeChild(comment);
       } else if (xmlhttp.status == 400) {
         alert("There was an error 400");
       } else {
@@ -36,8 +67,9 @@ function showComments(postId) {
       }
     }
   };
-  xmlhttp.open("GET", `../scripts/showComments.php?postid=${postId}`, true);
-  xmlhttp.send();
+  xmlhttp.open("POST", "../scripts/deleteComment.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xmlhttp.send(`id=${commentId}`);
 }
 
 function deletePost(postId) {

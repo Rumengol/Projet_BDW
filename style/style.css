@@ -245,7 +245,7 @@ a.commentNb {
 .comment {
   padding: 3px;
   background: aliceblue;
-  border-radius: 2px;
+  border-radius: 20px;
   margin-top: 3px;
 }
 
@@ -262,7 +262,7 @@ a.commentNb {
 }
 
 .commentContent {
-  margin-left: 3px;
+  margin: 10px 0;
 }
 
 .commAuth {

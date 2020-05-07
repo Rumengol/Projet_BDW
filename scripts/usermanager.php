@@ -88,7 +88,7 @@ function showPost($reponse){
         echo "<p class='postContent'>".$ligne['Contenu']."</p>";
         echo "<div class='footnotes'>";
         echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
-        echo "<a href='#post_".$ligne["PostId"]."' class='commentNb' onclick='showComments(\"".$ligne["PostId"]."\")'><i class='fas fa-comments'></i> ".getNbComments($ligne['PostId'])."</a>";
+        echo "<a href='#post_".$ligne["PostId"]."' class='commentNb' onclick='toggleComments(\"".$ligne["PostId"]."\")'><i class='fas fa-comments'></i> ".getNbComments($ligne['PostId'])."</a>";
         echo "<p class='date'>le <b>".$ligne['DatePoste']."</b></p>";
         if(isset($_COOKIE['idUser']) && $_COOKIE['idUser'] == $ligne['PersonneId'])
         echo "<p class='postActions'><a href='#'> <i class='fas fa-pencil-alt'></i> Éditer</a> |<a href='#' onclick='deletePost(\"".$ligne["PostId"]."\")'> <i class='fas fa-times'></i> Supprimer</a></p>";
