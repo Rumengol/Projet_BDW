@@ -88,12 +88,12 @@ function showPost($reponse){
         echo "<p class='postContent'>".$ligne['Contenu']."</p>";
         echo "<div class='footnotes'>";
         echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
-        echo "<a href='#post_".$ligne["PostId"]."' class='commentNb' onclick='showComments(\"".$ligne["PostId"]."\")><i class='fas fa-comments'></i> ".getNbComments($ligne['PostId'])."</a>";
+        echo "<a href='#post_".$ligne["PostId"]."' class='commentNb' onclick='showComments(\"".$ligne["PostId"]."\")'><i class='fas fa-comments'></i> ".getNbComments($ligne['PostId'])."</a>";
         echo "<p class='date'>le <b>".$ligne['DatePoste']."</b></p>";
         if(isset($_COOKIE['idUser']) && $_COOKIE['idUser'] == $ligne['PersonneId'])
         echo "<p class='postActions'><a href='#'> <i class='fas fa-pencil-alt'></i> Éditer</a> |<a href='#' onclick='deletePost(\"".$ligne["PostId"]."\")'> <i class='fas fa-times'></i> Supprimer</a></p>";
         if(isset($_COOKIE["idUser"]))
-          echo "<a class='comment' href='#post_".$ligne["PostId"]."' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
+          echo "<a class='commenter' href='#post_".$ligne["PostId"]."' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
         else
           echo "<p class='nocomment'>Commenter</p>";
         echo "</div></div>";

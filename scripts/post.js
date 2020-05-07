@@ -25,6 +25,10 @@ function showComments(postId) {
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
       // XMLHttpRequest.DONE == 4
       if (xmlhttp.status == 200) {
+        var container = document.createElement("div");
+        container.setAttribute("class", "commentContainer");
+        container.innerHTML = xmlhttp.responseText;
+        post.appendChild(container);
       } else if (xmlhttp.status == 400) {
         alert("There was an error 400");
       } else {
@@ -32,8 +36,8 @@ function showComments(postId) {
       }
     }
   };
-  xmlhttp.open("GET", "../scripts/showComments.php", true);
-  xmlhttp.send(`postid=${postId}`);
+  xmlhttp.open("GET", `../scripts/showComments.php?postid=${postId}`, true);
+  xmlhttp.send();
 }
 
 function deletePost(postId) {

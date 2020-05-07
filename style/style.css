@@ -8,6 +8,11 @@ body {
   padding: 0;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 header {
   height: 4em;
   display: flex;
@@ -204,6 +209,7 @@ header h1 a {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  margin: 15px 0 5px;
 }
 
 .date {
@@ -211,11 +217,60 @@ header h1 a {
   color: grey;
 }
 
-.comment {
+.commenter {
   color: #e84118;
 }
 
 .nocomment {
   color: gray;
   text-decoration: line-through;
+}
+
+a.commentNb {
+  text-decoration: none;
+  color: black;
+}
+
+.postActions a {
+  text-decoration: none;
+  color: black;
+}
+
+.commentContainer {
+  width: 99%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.comment {
+  padding: 3px;
+  background: aliceblue;
+  border-radius: 2px;
+  margin-top: 3px;
+}
+
+.commentHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.commentHead a {
+  text-decoration: none;
+  color: #e84118;
+}
+
+.commentContent {
+  margin-left: 3px;
+}
+
+.commAuth {
+  font-weight: bold;
+}
+
+.dateComment {
+  font-style: italic;
+  color: grey;
+  font-size: 12px;
 }
