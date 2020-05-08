@@ -13,6 +13,11 @@ p {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 header {
   height: 4em;
   display: flex;

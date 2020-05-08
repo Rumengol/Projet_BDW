@@ -42,6 +42,17 @@
     <button class="cancel" onclick="CancelComment()">Annuler</button>
     </form>
 </script>
+<script type="text/html" id="editHtml">
+    <form action="../scripts/edit.php" method="post" class="editForm">
+  <input type="text" name="Title" class="titleEdit" />
+  <input name="returnurl" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden >
+  <textarea name="Content" cols="30" rows="10" class="textEdit"></textarea>
+  <div class="editActions">
+    <input type="submit" value="Éditer" />
+    <button onclick="cancelEdit()">Annuler</button>
+  </div>
+</form>
+</script>
 </html>
 
 <?php

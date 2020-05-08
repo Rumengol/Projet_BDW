@@ -87,11 +87,11 @@ function showPost($reponse){
           echo "<img class='cover' src='../images/covers/".$ligne['CouverturePath']." />";
         echo "<p class='postContent'>".$ligne['Contenu']."</p>";
         echo "<div class='footnotes'>";
-        echo "<p class='likeCounter'><i class='far fa-heart'></i> ".$ligne['Likes']."</p>";
+        echo "<a class='likeCounter' href='#post_".$ligne["PostId"]."' onclick='toggleLike(\"".$ligne["PostId"]."\")'><i class='far fa-heart'></i> ".$ligne['Likes']."</a>";
         echo "<a href='#post_".$ligne["PostId"]."' class='commentNb' onclick='toggleComments(\"".$ligne["PostId"]."\")'><i class='fas fa-comments'></i> ".getNbComments($ligne['PostId'])."</a>";
         echo "<p class='date'>le <b>".$ligne['DatePoste']."</b></p>";
         if(isset($_COOKIE['idUser']) && $_COOKIE['idUser'] == $ligne['PersonneId'])
-        echo "<p class='postActions'><a href='#'> <i class='fas fa-pencil-alt'></i> Éditer</a> |<a href='#' onclick='deletePost(\"".$ligne["PostId"]."\")'> <i class='fas fa-times'></i> Supprimer</a></p>";
+        echo "<p class='postActions'><a href='#post_".$ligne["PostId"]."' onclick='showEditPostForm(\"".$ligne["PostId"]."\")'> <i class='fas fa-pencil-alt'></i> Éditer</a> |<a href='#post_".$ligne["PostId"]."' onclick='deletePost(\"".$ligne["PostId"]."\")'> <i class='fas fa-times'></i> Supprimer</a></p>";
         if(isset($_COOKIE["idUser"]))
           echo "<a class='commenter' href='#post_".$ligne["PostId"]."' onclick='showCommentForm(\"".$ligne["PostId"]."\")'>Commenter</a>";
         else

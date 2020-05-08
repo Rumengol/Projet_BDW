@@ -92,3 +92,41 @@ function deletePost(postId) {
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.send(`id=${postId}`);
 }
+
+function addLike(postId) {
+  throw new notImplementedException();
+}
+
+function showEditPostForm(postId) {
+  cancelEdit();
+  var post = document.getElementById(`post_${postId}`);
+  var container = document.querySelector(`#post_${postId} .commentContainer`);
+  if (container) post.removeChild(container);
+
+  var title = document.querySelector(`#post_${postId} .postTitle`);
+  var content = document.querySelector(`#post_${postId} .postContent`);
+  var formHtml = document.getElementById("editHtml");
+  var form = document.createElement("div");
+  form.setAttribute("class", "editBox");
+  form.innerHTML = formHtml.innerHTML;
+
+  var postRef = document.createElement("input");
+  postRef.setAttribute("name", "post");
+  postRef.setAttribute("value", postId);
+  postRef.setAttribute("hidden", true);
+  form.childNodes[1].appendChild(postRef);
+
+  post.appendChild(form);
+
+  var newTitle = document.querySelector(".editForm  .titleEdit");
+  var newContent = document.querySelector(".editForm .textEdit");
+  newTitle.value = title.innerHTML;
+  newContent.value = content.innerHTML;
+}
+
+function cancelEdit() {
+  var edits = document.querySelectorAll(".editBox");
+  edits.forEach(editbox => {
+    editbox.parentNode.removeChild(editbox);
+  });
+}
