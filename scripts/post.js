@@ -130,3 +130,10 @@ function cancelEdit() {
     editbox.parentNode.removeChild(editbox);
   });
 }
+
+function showPostForm() {
+  var form = document.getElementsByClassName("inactiveForm");
+  form[0].innerHTML = "";
+  form[0].value = "";
+  form[0].className = "activeForm";
+}

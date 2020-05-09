@@ -54,13 +54,16 @@ function showUser($id){
     $ligne = getUser($id);
     $avatar = $ligne['AvatarPath'] ? $ligne['AvatarPath'] : "default.png";
     echo "<div class='profile'><img class='avatar' src='../images/avatars/".$avatar."' />";
+    echo "<div class='infos'>";
     if($ligne['Pseudo'] != $ligne['Prenom']){
         echo "<h2>".$ligne['Pseudo']."</h2>";
         echo "<h3>".$ligne['Prenom']." ".$ligne['Nom']."</h3>";
     }
     else
         echo "<h2>".$ligne['Prenom']." ".$ligne['Nom']."</h2>";
-    
+      echo "<br />";
+      echo "</div>";
+
     echo $ligne['EstProfesseur'] ? "<img class='prof' src='../images/prof.png' />" : "<div class='prof vide'></div>";
     if(isset($_COOKIE['idUser']) && $id != $_COOKIE['idUser']){
         if(!areFriends($id, $_COOKIE['idUser']))

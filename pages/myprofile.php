@@ -12,6 +12,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style/style.css">
+    <!-- <link rel="stylesheet" href="../style/fun.css"> -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="../scripts/post.js"></script>
     <script src="../scripts/editPost.html"></script>
@@ -37,17 +38,22 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     </header>
     <div class="page">
     <div class="content">
+        <div class="profileAndPost">
     <?php 
         showUser($_COOKIE['idUser']); 
     ?>
 
-    <form action="myprofile.php" method="post">
+    <form action="myprofile.php" method="post" class="postForm">
         <label for="Title">Titre</label>
-        <input type="text" name="Title" id="titre">
-        <input type="image" name="ImagePath">
-        <textarea name="Content" rows="5" cols="50"></textarea>
-        <input type="submit" name="Post" value="Publier">
+        <input type="text" name="Title" class="titre" placeholder="Titre du message">
+        <label for="ImagePath">Choisir une image de couverture</label>
+        <input type="file" accept="image/png, image/jpeg" name="ImagePath" class="image">
+        <textarea class="inactiveForm" name="Content" rows="5" cols="50" onclick="showPostForm()">Écrivez votre message...</textarea>
+        
+        <input class="submitPost" type="submit" name="Post" value="Publier">
     </form>
+
+        </div>
 
     <div class="postContainer">
     <?php
@@ -127,9 +133,10 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
         $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\"".$_COOKIE["idUser"]."\" UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\"".$_COOKIE["idUser"]."\";";
         $reponse = mysqli_query($connect,$requete);
         while($ligne = mysqli_fetch_array($reponse)){
+            $avatar = $ligne["AvatarPath"]!=null ? $ligne["AvatarPath"] : "default.png";
             echo "<div class='friend'>";
             echo "<a href='profile.php?id=".$ligne["PersonneId"]."'>";
-            echo "<img src='../images/avatars/".$ligne["AvatarPath"]."' class='avatar' />";
+            echo "<img src='../images/avatars/".$avatar."' class='avatar' />";
             echo "<p class='pseudo'>".$ligne["Pseudo"]."</p>";
             if($ligne['EstProfesseur'])
                 echo "<img src='../images/prof.png' />";
