@@ -36,8 +36,10 @@
     </header>
     <div class="page">
         <div class="content">
+        <div class="profileBox">
         <?php 
             showUser($_GET["id"]); 
+            echo "</div>";
             echo "<div class='postContainer'>";
             showUserPosts($_GET['id']);
             echo "</div>";
@@ -45,9 +47,13 @@
         </div>
         <aside>
             <h2>Ses Groupes</h2>
+            <div class="asideContainer">
             <?php showGroups(); ?>
+            </div>
             <h2>Ses Amis</h2>
+            <div class ="asideContainer">
             <?php showFriends(); ?>
+            </div>
         </aside>
     </div>
 </body>

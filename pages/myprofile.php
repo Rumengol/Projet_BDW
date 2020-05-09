@@ -12,7 +12,6 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style/style.css">
-    <!-- <link rel="stylesheet" href="../style/fun.css"> -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="../scripts/post.js"></script>
     <script src="../scripts/editPost.html"></script>
@@ -63,11 +62,14 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 </div>
 
     <aside>
-        <h2>Mes groupes</h2>
-        <?php showGroups() ?>
-        <br>
-        <h2>Mes amis</h2>
-        <?php showFriends() ?>
+    <h2>Ses Groupes</h2>
+            <div class="asideContainer">
+            <?php showGroups(); ?>
+            </div>
+            <h2>Ses Amis</h2>
+            <div class ="asideContainer">
+            <?php showFriends(); ?>
+            </div>
     </aside>
 
     </div>
