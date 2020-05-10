@@ -43,10 +43,9 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     ?>
 
     <form action="myprofile.php" method="post" class="postForm">
-        <label for="Title">Titre</label>
-        <input type="text" name="Title" class="titre" placeholder="Titre du message">
-        <label for="ImagePath">Choisir une image de couverture</label>
-        <input type="file" accept="image/png, image/jpeg" name="ImagePath" class="image">
+        <input type="text" id="Title" placeholder="Titre du message">
+        <label class="imgLabel" for="ImagePath">Choisir une couverture</label>
+        <input type="file" accept="image/png, image/jpeg" id="ImagePath" class="image">
         <textarea class="inactiveForm" name="Content" rows="5" cols="50" onclick="showPostForm()">Écrivez votre message...</textarea>
         
         <input class="submitPost" type="submit" name="Post" value="Publier">

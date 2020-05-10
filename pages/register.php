@@ -1,133 +1,73 @@
-
-
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>inscription</title>
-</head>
-<body>
-	<div align="center">
-        <?php 
-        if(isset($_POST['forminscription']))
+<?php 
+include "../scripts/usermanager.php";
+        if(isset($_POST['register']))
             register();
         ?>
-        <h2>Inscription</h2>
-        <br /> 
-        <form method="POST" action="register.php">
-            <table>
-                <tr>   
-                    <td align="right"> 
-                        <label for="pseudo">
-                        Pseudo :</label>
-                    </td>
-                    <td>
-                        <input type="text"
-                        placeholder="Votre pseudo"
-                        id="pseudo"
-                        name ="pseudo"/>
-                    </td>
-                </tr>
-                <tr>   
-                    <td align="right">
-                        <label for="mail">
-                        Mail :</label>
-                    </td>
-                    <td>
-                        <input type="email"
-                        placeholder="Votre mail"
-                        id="mail"
-                        name ="mail"/>
-                    </td>
-                </tr>
-                <tr>    
-                    <td align="right">
-                        <label for="mail2">
-                        Confirmation du mail :</label>
-                    </td>
-                    <td>
-                        <input type="email"
-                        placeholder="Confirmer votre mail"
-                        id="mail2"
-                        name ="mail2"/>
-                    </td>
-                </tr>
-                <tr>    
-                    <td align="right">
-                        <label for="mdp">
-                        Mot de passe :</label>
-                    </td>
-                    <td>
-                        <input type="password"
-                        placeholder="Votre mot de passe"
-                        id="mdp"
-                        name ="mdp"/>
-                    </td>
-                </tr>
-                <tr>    
-                    <td align="right">
-                        <label for="mdp2">
-                        Confirmation du mot de passe :</label>
-                    </td>
-                    <td>
-                        <input type="password"
-                        placeholder="Confirmer votre mdp"
-                        id="mdp2"
-                        name ="mdp2"/>
-                    </td>
-                </tr>
-				<tr>
-					<td align="right">
-				<input type="submit" name="forminscription" value="S'inscrire"/>
-					</td>
-				</tr>
-            </table>
-            <br />    
-        </form>
-		<?php
-		if(isset($erreur))
-		{
-            echo $erreur;
-        }
-		?>
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../style/login.css" />
+    <title>Inscription</title>
+  </head>
+  <body>
+    <form action="register.php" method="post" class="box">
+      <h1>S'inscrire</h1>
+    <div id="columns">
+        <div class="col">
+      <input name="mail" type="email" placeholder="Entrez votre adresse e-mail" />
+      <input type="text" name="prenom" id="prenom" placeholder="Entrez votre prénom">
+      <input type="text" name="nom" id="nom" placeholder="Entrez votre nom">
     </div>
-</body>
+      <div class="col">
+        <label id="pseudolabel" for="pseudo">Ce champ est optionnel</label>
+      <input type="text" name="pseudo" id="pseudo" placeholder="Entrez votre pseudonyme">
+      <input type="password" name="password" placeholder="Entrez votre mot de passe" />
+      <input type="password" name="confirmPass" id="confirmPass" placeholder="Confirmez votre mot de passe">
+    </div>
+    </div>
+    <input name="register" type="submit" value="S'inscrire" />
+</form>
+    <?php if(isset($erreur)){
+        echo $erreur;
+    }
+    ?>
+  </body>
 </html>
 
 <?php
 function register(){
-  $user = 'root';
-  $password = 'root';
-  $db = 'espace_membre';
-  $host ='localhost:3306';
-  $connect = mysqli_connect($host, $user, $password, $db);
+  $connect = connexion();
 
-  if(!$connect)
-   echo "oups";
+    $erreur = null;
 
-
-	if(!empty($_POST['pseudo']) && !empty($_POST['mail']) && !empty($_POST['mail2']) && !empty($_POST['mdp']) && !empty($_POST['mdp2']))
+	if(!empty($_POST['nom']) && !empty($_POST['mail']) && !empty($_POST['prenom']) && !empty($_POST['password']) && !empty($_POST['confirmPass']))
 	{
-		$pseudo = htmlspecialchars($_POST['pseudo']);
-		$mail = htmlspecialchars($_POST['mail']);
-		$mail2 = htmlspecialchars($_POST['mail2']);
-		$mdp = sha1($_POST['mdp']);
-		$mdp2 = sha1($_POST['mdp2']);
-		
-		$pseudolenght = strlen($pseudo);
-		if($pseudolenght <= 255)
-		{
-			if($mail == $mail2)
-			{
+        $prenom = htmlspecialchars($_POST['prenom']);
+        $nom = htmlspecialchars($_POST["nom"]);
+        $pseudo = isset($_POST["pseudo"]) ? $_POST["pseudo"] : $prenom;
+        $mail = htmlspecialchars($_POST['mail']);
+        if($_POST["password"] == $_POST["confirmPass"])
+		    $mdp = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				if(filter_var($mail, FILTER_VALIDATE_EMAIL))
 				{
 
 					
-					if($mdp == $mdp2)
+					if($mdp != null)
 					{
-							$insertmbr = $connect->prepare("INSERT INTO membres(pseudo, mail, motdepasse) VALUES(?,?,?)");
-							$insertmbr->execute(array($pseudo, $mail, $mdp));
-							$erreur = "Votre compte a bien été créé";
-							header('Location: index.php');
+                        $id = uniqid();
+                            $requete = "INSERT INTO Personnes (PersonneId,Email,Pseudo,HashMDP,Prenom,Nom)
+                            VALUES (\"".$id."\",\"".$mail."\",\"".$pseudo."\",\"".$mdp."\",\"".$prenom."\",\"".$nom."\");";
+                            $reponse = mysqli_connect($connect,$requete);
+                            if($reponse != null){
+                                header('Location: myprofile.php');
+                                setcookie("idUser",$ligne["PersonneId"],time()+30*24*60*60,"/","localhost",true,true);
+                            } else{
+                                $erreur = "Erreur inconnue, veuillez réessayer.";
+                            }
 					}
 					else
 					{
@@ -138,16 +78,6 @@ function register(){
 				{
 				$erreur = "Votre adresse mail n'est pas valide";
 				}
-			}
-			else
-			{
-				$erreur = "Vos adresses mails ne correspondent pas";
-			}
-		}
-		else
-		{
-				$erreur = "Votre pseudo ne doit pas dépasser 255 caractères";
-		}
 			
 	}
 	else

@@ -1,4 +1,5 @@
     <?php
+        include "../scripts/usermanager.php";
         if(isset($_POST["login"]))
             login();
     ?>
@@ -19,16 +20,12 @@
 <?php
     function login()
     {
-        $user = 'root';
-        $password = 'root';
-        $db = 'reseaudb';
-        $host = 'localhost:3306';
-        $connect = mysqli_connect($host,$user,$password,$db);
+        $connect = connexion();
 
         if(mysqli_connect_errno())
             echo "Impossible de se connecter, veuillez réessayer.";
         else{
-            $requete = "SELECT Pseudo,PersonneId,HashMDP FROM Personnes WHERE Email LIKE \"".$_POST["mail"]."\";";
+            $requete = "SELECT Pseudo,PersonneId,HashMDP FROM Personnes WHERE Email LIKE \"".$_POST["mail"]."\" OR Pseudo LIKE \"".$_POST["mail"]."\";";
             $reponse = mysqli_query($connect,$requete);
             if(gettype($reponse) != "boolean"){
                 $ligne = mysqli_fetch_array($reponse);
@@ -53,13 +50,14 @@
                 }
             }
             else{
-                echo '<p class="error">Adresse mail non reconnue.</p>';
+                echo '<p class="error">Adresse mail ou nom d\'utilisateur inconnu.</p>';
             }
 
             echo '<form class="box" action="login.php" method="post">';
+            echo '<h1>Se Connecter</h1>';
             echo '<input name="mail" type="text" placeholder="Email ou nom d\'utilisateur" />';
             echo '<input name="password" type="password" placeholder="Mot de passe"/>';
-            echo '<button name="login" type="submit">Se connecter</button>';
+            echo '<input name="login" type="submit" value="Se connecter">';
             echo '</form>';
 
 
