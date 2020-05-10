@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/login.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Identification en cours</title>
 </head>
@@ -55,14 +56,10 @@
                 echo '<p class="error">Adresse mail non reconnue.</p>';
             }
 
-            echo '<form action="login.php" method="post">';
-            echo '<fieldset>';
-            echo '<label for="mail">Email :</label>';
-            echo '<input name="mail" type="email" />';
-            echo '<label for="password">Mot de passe :</label>';
-            echo '<input name="password" type="password" />';
+            echo '<form class="box" action="login.php" method="post">';
+            echo '<input name="mail" type="text" placeholder="Email ou nom d\'utilisateur" />';
+            echo '<input name="password" type="password" placeholder="Mot de passe"/>';
             echo '<button name="login" type="submit">Se connecter</button>';
-            echo '</fieldset>';
             echo '</form>';
 
 
