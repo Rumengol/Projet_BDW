@@ -5,3 +5,4 @@ TODO :
 - finir le CSS du profil
 - CSS des logins & register
 - PHP du register
+- CSS des commentaires/édition

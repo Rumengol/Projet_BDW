@@ -64,7 +64,7 @@ function showUser($id){
       echo "<br />";
       echo "</div>";
 
-    echo $ligne['EstProfesseur'] ? "<img class='prof' src='../images/prof.png' />" : "<div class='prof vide'></div>";
+    echo $ligne['EstProfesseur'] ? "<i class='fas fa-graduation-cap'></i>" : "<div class='prof vide'></div>";
     if(isset($_COOKIE['idUser']) && $id != $_COOKIE['idUser']){
         if(!areFriends($id, $_COOKIE['idUser']))
             echo "<div id='addfriend'><a href='#' class='addFriendButton' onclick='sendFriendRequest(\"".$_COOKIE['idUser']."\",\"".$id."\")'><i class='fas fa-user'></i> Ajouter ami</a></div>";
@@ -150,4 +150,36 @@ function showUserTop(){
         }
       }
   }
+
+  function showGroups($id){
+    $connect = connexion();
+    $requete = "SELECT GroupeId, Annee, Matiere FROM appartientpersonnegroupe JOIN groupes ON (Groupe=GroupeId) WHERE Personne=\"".$id."\";";
+    $reponse = mysqli_query($connect,$requete);
+    while($ligne = mysqli_fetch_array($reponse)){
+        echo "<div class='group'>";
+        echo "<a href='group.php?idg=".$ligne["GroupeId"]."'>";
+        echo "<p>".$ligne["Matiere"]." <i>".$ligne["Annee"]."</i></p>";
+        echo "</a></div>";
+    }
+    mysqli_free_result($reponse);
+    mysqli_close($connect);
+}
+
+function showFriends($id){
+  $connect = connexion();
+  $requete = "SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami2=PersonneId) WHERE Ami1=\"".$id."\" UNION SELECT PersonneId, Pseudo, AvatarPath, EstProfesseur FROM amis JOIN Personnes ON (Ami1=PersonneId) WHERE Ami2=\"".$id."\";";
+  $reponse = mysqli_query($connect,$requete);
+  while($ligne = mysqli_fetch_array($reponse)){
+      $avatar = $ligne["AvatarPath"]!=null ? $ligne["AvatarPath"] : "default.png";
+      echo "<div class='friend'>";
+      echo "<a href='profile.php?id=".$ligne["PersonneId"]."'>";
+      echo "<img src='../images/avatars/".$avatar."' class='avatar' />";
+      echo "<p class='pseudo'>".$ligne["Pseudo"];
+      if($ligne['EstProfesseur'])
+          echo " <i class='fas fa-graduation-cap'></i>";
+      echo "</p></a></div>";
+  }
+  mysqli_free_result($reponse);
+  mysqli_close($connect);
+}
 ?>
