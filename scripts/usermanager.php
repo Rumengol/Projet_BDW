@@ -53,15 +53,17 @@ function getUserPosts($user){
 function showUser($id){
     $ligne = getUser($id);
     $avatar = $ligne['AvatarPath'] ? $ligne['AvatarPath'] : "default.png";
-    echo "<div class='profile'><img class='avatar' src='../images/avatars/".$avatar."' />";
+    echo "<form action='myprofile.php' type='POST'>";
+    echo "<div class='profile'><div id='avatarBox'><label id='avatarLabel' for='editAvatar' onclick='activateSave()'><input name='AvatarInput' type='file' id='editAvatar'><img class='avatar' src='../images/avatars/".$avatar."' /><i class='fas fa-pencil-alt'></i></label></div>";
     echo "<div class='infos'>";
     if($ligne['Pseudo'] != $ligne['Prenom']){
-        echo "<h2>".$ligne['Pseudo']."</h2>";
-        echo "<h3>".$ligne['Prenom']." ".$ligne['Nom']."</h3>";
+        echo "<div id='pseudoBox' onclick='showPseudoInput()'><h2>".$ligne['Pseudo']."</h2><i class='fas fa-pencil-alt'></i></div>";
+        echo "<div id='nameBox' onclick='showNameInput()'><h3>".$ligne['Prenom']." ".$ligne['Nom']."</h3><i class='fas fa-pencil-alt'></i></div>";
     }
     else
-        echo "<h2>".$ligne['Prenom']." ".$ligne['Nom']."</h2>";
-      echo "<br />";
+        echo "<div id='pseudoBox' onclick='showPseudoInput()'><h2>".$ligne['Prenom']." ".$ligne['Nom']."</h2><i class='fas fa-pencil-alt'></i></div>";
+        echo "<input name='save' id='save' type='submit' value='Enregistrer' disabled>";
+        echo "<br />";
       echo "</div>";
 
     echo $ligne['EstProfesseur'] ? "<i class='fas fa-graduation-cap'></i>" : "<div class='prof vide'></div>";
@@ -71,7 +73,7 @@ function showUser($id){
         else
             echo "<div id='addfriend'><a href=class='addFriendButton' disabled><i class='fas fa-user'></i> Ajouter ami</a><a href='#' class='unfriend' onclick='unfriend(\"".$_COOKIE['idUser']."\",\"".$id."\")'><i class='fas fa-times'></i></a></div>";
     }
-        echo "</div>";
+        echo "</div></form>";
 }
 
 function showUserPosts($user){

@@ -27,13 +27,14 @@
       </div>
 
     </header>
-
+  <div id="searchContent">
     <h2>Résultats de la recherche :</h2>
     <?php 
     if(isset($_POST["search"])){
         showResults();
     }
 ?>
+</div>
 </body>
 </html>
 
@@ -46,16 +47,17 @@ function showResults(){
     $ctrl = 0;
 
     while ($ligne = mysqli_fetch_array($reponse)) {
-            echo "<div class='searchResult'>";
+            echo "<div class='friend search'>";
             echo "<a href='profile.php?id=".$ligne["PersonneId"]."'>";
-            echo "<img src='../images/avatars/".$ligne["AvatarPath"]."' class='avatar'>";
+            $avatar = $ligne["AvatarPath"]!=null ? $ligne["AvatarPath"] : "default.png";
+            echo "<img src='../images/avatars/".$avatar."' class='avatar'>";
             echo "<div class='pseudo'>";
             echo "<h2>".$ligne["Pseudo"]."</h2>";
             echo "<h3>".$ligne["Prenom"]." ".$ligne["Nom"]."</h3>";
             echo "</div>";
-            if($ligne["EstProfesseur"])
-                echo "<img src='../images/prof.png' />";
-            echo "</a></div>";
+            if($ligne['EstProfesseur'])
+          echo " <i class='fas fa-graduation-cap'></i>";
+      echo "</p></a></div>";
             $ctrl++;
     }
 

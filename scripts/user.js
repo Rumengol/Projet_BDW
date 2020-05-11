@@ -45,3 +45,31 @@ function unfriend(ami1, ami2) {
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.send(`id1=${ami1}&id2=${ami2}`);
 }
+
+function showPseudoInput() {
+  var pseudoBox = document.getElementById("pseudoBox");
+  var pseudo = document.querySelector("#pseudoBox h2").innerHTML;
+  var input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("name", "pseudoInput");
+  input.setAttribute("value", pseudo);
+  activateSave();
+  pseudoBox.innerHTML = "";
+  pseudoBox.appendChild(input);
+}
+
+function showNameInput() {
+  var nameBox = document.getElementById("nameBox");
+  var name = document.querySelector("#nameBox h3").innerHTML;
+  var input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("name", "nameInput");
+  input.setAttribute("value", name);
+  activateSave();
+  nameBox.innerHTML = "";
+  nameBox.appendChild(input);
+}
+
+function activateSave() {
+  document.getElementById("save").removeAttribute("disabled");
+}

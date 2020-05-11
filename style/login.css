@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: #34495e;
+  background: #e84118;
 }
 
 .box {
@@ -37,7 +37,7 @@ body {
   display: block;
   margin: 20px auto;
   text-align: center;
-  border: 2px solid #3498db;
+  border: 2px solid #ec552f;
   padding: 14px 10px;
   width: 200px;
   outline: none;

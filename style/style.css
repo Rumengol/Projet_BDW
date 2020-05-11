@@ -101,6 +101,22 @@ header h1 a {
   margin-right: 2em;
 }
 
+#searchContent {
+  margin-left: 3em;
+}
+
+.search {
+  height: 80px;
+  width: 300px !important;
+  padding: 1em 0 !important;
+}
+
+.search h2,
+.search h3 {
+  padding: 0;
+  margin: 2.5px 0;
+}
+
 #account img,
 .friend img {
   height: 1.75em;
@@ -307,6 +323,12 @@ a.commentNb {
   border: 2px solid black;
 }
 
+.infos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile .infos h2,
 .profile .infos h3 {
   margin: 0;
@@ -334,9 +356,14 @@ a.commentNb {
   border: 1px solid #c7c5c0;
 }
 
-.postForm #Title {
+#Title {
   min-width: 200px;
-  color: #4e5162;
+}
+
+#Title,
+#pseudoBox input[type="text"],
+#nameBox input[type="text"] {
+  color: #393a41;
   background: white;
   border: 1px solid #3b4151;
   -moz-box-shadow: inset 0px 2px 2px #c7c5c0;
@@ -405,13 +432,15 @@ a.commentNb {
   resize: vertical;
 }
 
-.submitPost {
+.submitPost,
+#save,
+#editLink {
   display: block;
   padding-top: 6px;
   padding-bottom: 6px;
   margin-top: 15px;
   margin-bottom: 15px;
-  width: auto;
+  max-width: auto;
   color: white !important;
   font-size: 12pt;
   line-height: 12pt;
@@ -485,7 +514,7 @@ aside {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 100%;
+  width: 50%;
 }
 
 aside h2 {
@@ -507,26 +536,6 @@ input[type="file"] {
 
 input[type="file"],
 .imgLabel {
-  /* background-color: #000;
-  border-radius: 4rem;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  padding-left: 2rem 4rem; */
-  /* background: #f15d22;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Poppins", sans-serif;
-  font-size: inherit;
-  font-weight: 600;
-  outline: none;
-  padding: 10px 14px;
-  position: relative;
-  transition: all 0.3s;
-  vertical-align: middle; */
   display: inline-block;
   padding: 6px 8px;
   margin: 15px 0;
@@ -539,10 +548,6 @@ input[type="file"],
   text-shadow: 0px 1px 2px black;
   background-image: none !important;
   background-color: #ff6600;
-  -moz-box-shadow: inset 0px 15px 0px #ff7900, inset 0px -1px 0px #a63f00,
-    0px 2px 2px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: inset 0px 15px 0px #ff7900, inset 0px -1px 0px #a63f00,
-    0px 2px 2px rgba(0, 0, 0, 0.4);
   box-shadow: inset 0px 15px 0px #ff7900, inset 0px -1px 0px #a63f00,
     0px 2px 2px rgba(0, 0, 0, 0.4);
   border: 1px solid #ff6600;
@@ -568,4 +573,47 @@ input[type="file"]:focus,
 
 #Title {
   font-size: 18px;
+}
+
+#pseudoBox,
+#nameBox,
+#avatarBox {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#avatarBox svg,
+#pseudoBox svg,
+#nameBox svg {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#avatarBox:hover,
+#avatarBox:hover svg,
+#pseudoBox:hover,
+#nameBox:hover,
+#pseudoBox:hover svg,
+#nameBox:hover svg {
+  border: 1px dashed #9f9d9b !important;
+  opacity: 1;
+  cursor: pointer;
+}
+
+#avatarLabel {
+  width: auto;
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+#save:disabled {
+  cursor: not-allowed;
+  background-color: #7f8c8d;
+  box-shadow: inset 0px 15px 0px #95a5a6, inset 0px -1px 0px #7f8c8d,
+    0px 2px 2px rgba(0, 0, 0, 0.4);
+  border: darkgray;
 }

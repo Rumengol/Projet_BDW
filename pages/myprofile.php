@@ -1,5 +1,7 @@
 <?php
 include "../scripts/usermanager.php";
+if(isset($_POST["save"]))
+    editInfos();
 if(!isset($_COOKIE["idUser"]))
     header("Location : /index.php");
 if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content']))
@@ -14,6 +16,7 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
     <link rel="stylesheet" href="../style/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="../scripts/post.js"></script>
+    <script src="../scripts/user.js"></script>
     <script src="../scripts/editPost.html"></script>
     <title>Mon profil</title>
 </head>
@@ -61,11 +64,12 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
 </div>
 
     <aside>
-    <h2>Ses Groupes</h2>
+        <a href='editInfo.php' id="editLink">Editer mes informations</a>
+        <h2>Mes Groupes</h2>
             <div class="asideContainer">
             <?php showGroups($_COOKIE["idUser"]); ?>
             </div>
-            <h2>Ses Amis</h2>
+            <h2>Mes Amis</h2>
             <div class ="asideContainer">
             <?php showFriends($_COOKIE["idUser"]); ?>
             </div>
@@ -111,6 +115,38 @@ if(isset($_POST['Post']) && !empty($_POST['Title']) && !empty($_POST['Content'])
             $dossier = '../images/covers/';
             move_uploaded_file($_FILES['fileUser']['tmp_name'], $dossier . $fichier);
             }   
+        }
+        mysqli_close($connect);
+    }
+
+    function editInfos(){
+        $connect = connexion();
+        $user = getUser($_COOKIE["idUser"]);
+        if(isset($_POST["pseudoInput"])){
+            $req1 =  "Pseudo=\"".$_POST["pseudoInput"]."\"";
+            $requete = "UPDATE Personnes SET ".$req1." WHERE PersonneId=\"".$user["PersonneId"]."\";";
+        $reponse = mysqli_query($connect,$requete);
+        }
+        if(isset($_POST["AvatarInput"])){
+            $avatar=$_FILES['AvatarInput']['name'];
+            $req2 = "AvatarPath=\"".$avatar."\";";
+            $requete = "UPDATE Personnes SET ".$req2." WHERE PersonneId=\"".$user["PersonneId"]."\";";
+        $reponse = mysqli_query($connect,$requete);
+        if($reponse!=null){
+            if(!empty($_POST['AvatarInput'])){
+            $fichier = basename($_FILES['AvatarInput']['name']);
+            $dossier = '../images/avatars/';
+            move_uploaded_file($_FILES['fileUser']['tmp_name'], $dossier . $fichier);
+            }   
+        }
+        }
+        if(isset($_POST["nameInput"])){
+            $fullName = explode(" ",$_POST["nameInput"]);
+            $prenom = $fullName[0];
+            $nom = implode(" ",array_splice($fullName, 0));
+            $req3 = "Prenom=\"".$prenom."\",Nom=\"".$nom."\"";
+            $requete = "UPDATE Personnes SET ".$req3." WHERE PersonneId=\"".$user["PersonneId"]."\";";
+        $reponse = mysqli_query($connect,$requete);
         }
         mysqli_close($connect);
     }
