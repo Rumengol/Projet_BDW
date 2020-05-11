@@ -35,21 +35,21 @@
     </div>
   </body>
   <script id="commentHtml" type="text/html">
-  <form class="commentForm" method="POST" action="../scripts/Commentaire.php">
-    <textarea name="commentaire" placeholder="Votre commentaire..."></textarea><br />
+    <form class="postForm" method="POST" action="../scripts/Commentaire.php">
+    <textarea class="activeForm" name="commentaire" placeholder="Votre commentaire..."></textarea><br />
     <input name="returnurl" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden >
-    <input type="submit" value="Poster mon commentaire" name="submit_commentaire" />
-    <button class="cancel" onclick="CancelComment()">Annuler</button>
+    <input class="submitPost" type="submit" value="Poster mon commentaire" name="submit_commentaire" />
+    <button class="submitPost" class="cancel" onclick="CancelComment()">Annuler</button>
     </form>
 </script>
 <script type="text/html" id="editHtml">
-    <form action="../scripts/edit.php" method="post" class="editForm">
-  <input type="text" name="Title" class="titleEdit" />
+    <form action="../scripts/edit.php" method="post" class="postForm">
+  <input type="text" name="Title" class="Title" />
   <input name="returnurl" value="<?php echo $_SERVER['REQUEST_URI']; ?>" hidden >
-  <textarea name="Content" cols="30" rows="10" class="textEdit"></textarea>
+  <textarea name="Content" cols="30" rows="10" class="activeForm"></textarea>
   <div class="editActions">
-    <input type="submit" value="Éditer" />
-    <button onclick="cancelEdit()">Annuler</button>
+    <input class="submitPost" type="submit" value="Éditer" />
+    <button class="submitPost" onclick="cancelEdit()">Annuler</button>
   </div>
 </form>
 </script>

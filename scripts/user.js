@@ -6,7 +6,7 @@ function sendFriendRequest(ami1, ami2) {
       // XMLHttpRequest.DONE == 4
       if (xmlhttp.status == 200) {
         var addBtn = document.getElementsByClassName("addFriendButton");
-        addBtn.className += " disabled";
+        addBtn.setAttribute("disabled", true);
         var addDiv = document.getElementById("addfriend");
         addDiv.innerHTML += `<a href='#' class='unfriend' onclick='unfriend("${ami1}","${ami2}")'><i class='fas fa-times'></i></a>`;
       } else if (xmlhttp.status == 400) {

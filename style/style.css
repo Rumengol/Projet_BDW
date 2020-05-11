@@ -356,11 +356,11 @@ a.commentNb {
   border: 1px solid #c7c5c0;
 }
 
-#Title {
+.Title {
   min-width: 200px;
 }
 
-#Title,
+.Title,
 #pseudoBox input[type="text"],
 #nameBox input[type="text"] {
   color: #393a41;
@@ -433,7 +433,7 @@ a.commentNb {
 }
 
 .submitPost,
-#save,
+.save,
 #editLink {
   display: block;
   padding-top: 6px;
@@ -610,7 +610,7 @@ input[type="file"]:focus,
   cursor: pointer;
 }
 
-#save:disabled {
+.save:disabled {
   cursor: not-allowed;
   background-color: #7f8c8d;
   box-shadow: inset 0px 15px 0px #95a5a6, inset 0px -1px 0px #7f8c8d,

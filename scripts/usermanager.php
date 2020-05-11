@@ -69,14 +69,14 @@ function showUser($id){
     echo $ligne['EstProfesseur'] ? "<i class='fas fa-graduation-cap'></i>" : "<div class='prof vide'></div>";
     if(isset($_COOKIE['idUser']) && $id != $_COOKIE['idUser']){
         if(!areFriends($id, $_COOKIE['idUser']))
-            echo "<div id='addfriend'><a href='#' class='addFriendButton' onclick='sendFriendRequest(\"".$_COOKIE['idUser']."\",\"".$id."\")'><i class='fas fa-user'></i> Ajouter ami</a></div>";
+            echo "<div id='addfriend' class='save'><a href='#' class='addFriendButton' onclick='sendFriendRequest(\"".$_COOKIE['idUser']."\",\"".$id."\")'><i class='fas fa-user'></i> Ajouter ami</a></div>";
         else
-            echo "<div id='addfriend'><a href=class='addFriendButton' disabled><i class='fas fa-user'></i> Ajouter ami</a><a href='#' class='unfriend' onclick='unfriend(\"".$_COOKIE['idUser']."\",\"".$id."\")'><i class='fas fa-times'></i></a></div>";
+            echo "<div id='addfriend' class='save'><a href=class='addFriendButton' disabled><i class='fas fa-user'></i> Ajouter ami</a><a href='#' class='unfriend' onclick='unfriend(\"".$_COOKIE['idUser']."\",\"".$id."\")'><i class='fas fa-times'></i></a></div>";
     }
         echo "</div></form>";
 }
 
-function showUserPosts($user){
+  function showUserPosts($user){
     $reponse = getUserPosts($user);
     showPost($reponse);
 }

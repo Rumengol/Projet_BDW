@@ -1,8 +1,3 @@
 TODO : 
-- transformer le .png en svg
-- CSS de la recherche
 - Live Search si possible
-- finir le CSS du profil
-- CSS des logins & register
-- PHP du register
 - CSS des commentaires/édition
